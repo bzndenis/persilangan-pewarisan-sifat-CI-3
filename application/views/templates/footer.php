@@ -38,11 +38,11 @@
 
             // Event untuk navigasi
             $('#nextBtn').click(function() {
-                window.location.href = '<?= base_url("contohsoal/step/2") ?>';
+                window.location.href = '<?= base_url("latihan/step/2") ?>';
             });
 
             $('#prevBtn').click(function() {
-                window.location.href = '<?= base_url("contohsoal/step/1") ?>';
+                window.location.href = '<?= base_url("latihan/step/1") ?>';
             });
         });
         </script>

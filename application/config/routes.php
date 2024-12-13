@@ -52,6 +52,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['contoh_soal'] = 'contoh_soal/index';
-$route['contoh_soal/step/(:num)'] = 'contoh_soal/step/$1';
-$route['contoh_soal/lihat_penjelasan/(:num)'] = 'contoh_soal/lihat_penjelasan/$1';

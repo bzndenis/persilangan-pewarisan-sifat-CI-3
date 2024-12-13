@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ContohSoal extends CI_Controller {
+class Latihan extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
@@ -16,25 +16,25 @@ class ContohSoal extends CI_Controller {
         $user_id = $this->session->userdata('user_id');
         $progress = $this->soal_model->get_user_progress($user_id);
         
-        $current_step = ($progress && isset($progress->soal_selesai)) ? $progress->soal_selesai + 1 : 1;
+        $current_step = ($progress && isset($progress->latihan_selesai)) ? $progress->latihan_selesai + 1 : 1;
         if($current_step > 2) $current_step = 2;
         
-        redirect('contohsoal/step/' . $current_step);
+        redirect('latihan/step/' . $current_step);
     }
     
     public function step($step = 1) {
         $step = (int)$step;
         if($step < 1 || $step > 2) {
-            redirect('contohsoal');
+            redirect('latihan');
         }
         
-        $data['title'] = 'Contoh Soal';
+        $data['title'] = 'Latihan Soal';
         $data['user'] = $this->session->userdata();
         $data['current_step'] = $step;
         $data['soal'] = $this->soal_model->get_soal_by_step($step);
         
         if(empty($data['soal'])) {
-            redirect('contohsoal');
+            redirect('latihan');
         }
         
         // Update progress jika step valid
@@ -51,7 +51,7 @@ class ContohSoal extends CI_Controller {
         
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('contoh_soal/index', $data);
+        $this->load->view('latihan/index', $data);
         $this->load->view('templates/footer');
     }
     

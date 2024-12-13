@@ -30,7 +30,7 @@
                     </div>
                     <h5 class="card-title">Contoh Soal</h5>
                     <p class="card-text">Uji pemahaman Anda dengan mengerjakan soal-soal latihan.</p>
-                    <a href="<?= base_url('contohsoal'); ?>" class="btn btn-success">Lihat Contoh Soal</a>
+                    <a href="<?= base_url('latihan'); ?>" class="btn btn-success">Lihat Contoh Soal</a>
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
                                     <i class="fas fa-book me-2"></i>Lanjutkan Belajar
                                 </a>
                                 <?php elseif($user['latihan_selesai'] < 2): ?>
-                                <a href="<?= base_url('contohsoal') ?>" class="btn btn-success">
+                                <a href="<?= base_url('latihan') ?>" class="btn btn-success">
                                     <i class="fas fa-tasks me-2"></i>Contoh Soal
                                 </a>
                                 <?php else: ?>

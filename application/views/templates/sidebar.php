@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('contohsoal'); ?>" class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : 'link-dark'; ?>">
+                <a href="<?= base_url('latihan'); ?>" class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : 'link-dark'; ?>">
                     <i class="fas fa-tasks me-2"></i>
                     Contoh Soal
                 </a>
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : ''; ?>" href="<?= base_url('contohsoal'); ?>">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : ''; ?>" href="<?= base_url('latihan'); ?>">
                         <i class="fas fa-tasks me-2"></i>Contoh Soal
                     </a>
                 </li>
