@@ -158,6 +158,12 @@ class Game extends CI_Controller {
         $is_correct = isset($correct_answers[$position]) && 
                      strtoupper($correct_answers[$position]) === strtoupper($answer);
         
+        if ($is_correct) {
+            // Simpan jawaban yang benar ke database
+            $user_id = $this->session->userdata('user_id');
+            $this->game_answers_model->save_single_answer($user_id, $level, $position, $answer);
+        }
+        
         echo json_encode([
             'correct' => $is_correct,
             'message' => $is_correct ? 'Benar!' : 'Coba lagi'

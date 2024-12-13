@@ -34,4 +34,17 @@ class Game_answers_model extends CI_Model {
                           
         return $result ? json_decode($result->answers, true) : null;
     }
+    
+    public function save_single_answer($user_id, $level, $position, $answer) {
+        $existing = $this->get_answers($user_id, $level);
+        
+        if ($existing === null) {
+            $existing = array();
+        }
+        
+        // Update atau tambah jawaban baru
+        $existing[$position] = $answer;
+        
+        return $this->save_answers($user_id, $level, $existing);
+    }
 }

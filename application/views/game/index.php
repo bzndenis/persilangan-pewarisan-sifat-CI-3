@@ -57,11 +57,15 @@
                                 foreach($rows as $i => $row): ?>
                                 <tr>
                                     <th><?= $row ?></th>
-                                    <?php for($j = 0; $j < 4; $j++): ?>
+                                    <?php for($j = 0; $j < 4; $j++): 
+                                        $position = $i . '_' . $j;
+                                        $saved_value = isset($saved_answers[$position]) ? $saved_answers[$position] : '';
+                                    ?>
                                         <td>
                                             <input type="text" 
-                                                   class="form-control punnett-input" 
-                                                   data-position="<?= $i ?>_<?= $j ?>">
+                                                   class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
+                                                   data-position="<?= $position ?>"
+                                                   value="<?= $saved_value ?>">
                                         </td>
                                     <?php endfor; ?>
                                 </tr>
@@ -181,13 +185,58 @@ $(document).ready(function() {
     const correctSound = document.getElementById('correctSound');
     const wrongSound = document.getElementById('wrongSound');
     const applauseSound = document.getElementById('applauseSound');
+    let verifyButtonTimeout;
 
-    // Isi jawaban yang tersimpan jika ada
-    <?php if(isset($saved_answers) && $saved_answers): ?>
-        $('.punnett-input').each(function(index) {
-            $(this).val(<?= json_encode($saved_answers) ?>[index]);
+    // Fungsi untuk menonaktifkan tombol verifikasi
+    function disableVerifyButton() {
+        $('#verifyButton').prop('disabled', true);
+        let countdown = 15;
+        
+        verifyButtonTimeout = setInterval(function() {
+            $('#verifyButton').html(`<i class="fas fa-clock me-2"></i>Tunggu ${countdown} detik`);
+            countdown--;
+            
+            if(countdown < 0) {
+                clearInterval(verifyButtonTimeout);
+                $('#verifyButton').prop('disabled', false)
+                    .html('<i class="fas fa-check me-2"></i>Verifikasi Jawaban');
+            }
+        }, 1000);
+    }
+
+    // Verifikasi jawaban tunggal dan simpan jika benar
+    function verifySingleAnswer(position, answer) {
+        $.ajax({
+            url: '<?= base_url("game/verify_single_answer") ?>',
+            type: 'POST',
+            data: {
+                position: position,
+                answer: answer,
+                level: <?= $current_level ?>
+            },
+            success: function(response) {
+                if(response.correct) {
+                    // Jika benar, simpan ke database
+                    $.ajax({
+                        url: '<?= base_url("game/save_correct_answer") ?>',
+                        type: 'POST',
+                        data: {
+                            position: position,
+                            answer: answer,
+                            level: <?= $current_level ?>
+                        }
+                    });
+                }
+            }
         });
-    <?php endif; ?>
+    }
+
+    // Event handler untuk input
+    $('.punnett-input').on('change', function() {
+        let position = $(this).data('position');
+        let answer = $(this).val();
+        verifySingleAnswer(position, answer);
+    });
 
     $('#verifyButton').click(function() {
         let answers = {};
@@ -195,6 +244,8 @@ $(document).ready(function() {
             let position = $(this).data('position');
             answers[position] = $(this).val();
         });
+
+        disableVerifyButton(); // Nonaktifkan tombol setelah diklik
 
         $.ajax({
             url: '<?= base_url("game/verify_answer") ?>',
@@ -214,6 +265,8 @@ $(document).ready(function() {
                         wrongSound.play();
                     } else {
                         $(this).removeClass('incorrect').addClass('correct');
+                        // Simpan jawaban yang benar
+                        verifySingleAnswer(position, $(this).val());
                     }
                 });
 
