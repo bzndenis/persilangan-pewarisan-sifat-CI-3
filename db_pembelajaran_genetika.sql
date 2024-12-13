@@ -1,222 +1,157 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Dec 12, 2024 at 09:18 PM
--- Server version: 8.0.30
--- PHP Version: 7.4.9
+/*
+ Navicat Premium Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : local
+ Source Server Type    : MySQL
+ Source Server Version : 80030 (8.0.30)
+ Source Host           : localhost:3306
+ Source Schema         : db_pembelajaran_genetika
 
+ Target Server Type    : MySQL
+ Target Server Version : 80030 (8.0.30)
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 13/12/2024 23:09:42
+*/
 
---
--- Database: `db_pembelajaran_genetika`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `materi`
---
-
-CREATE TABLE `materi` (
-  `id` int NOT NULL,
-  `judul` varchar(100) NOT NULL,
-  `isi` text NOT NULL,
-  `gambar` varchar(255) DEFAULT NULL,
+-- ----------------------------
+-- Table structure for materi
+-- ----------------------------
+DROP TABLE IF EXISTS `materi`;
+CREATE TABLE `materi`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `judul` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `step` int NOT NULL DEFAULT 1,
+  `urutan` int NOT NULL DEFAULT 1,
+  `isi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `gambar` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `materi`
---
+-- ----------------------------
+-- Records of materi
+-- ----------------------------
+INSERT INTO `materi` VALUES (1, 'Pengenalan Pewarisan Sifat', 1, 1, 'Pewarisan sifat pada makhluk hidup dapat ditentukan oleh materi genetik yang terdiri dari kromosom, DNA, dan RNA. Selain itu, dapat ditentukan melalui sifat beda yaitu sifat dominan-resesif dan intermediet yang terdiri dari sifat fenotif dan genotif.\r\n\r\nPewarisan sifat dalam biologi adalah proses di mana sifat-sifat genetik dari induk diwariskan kepada keturunannya. Mekanisme pewarisan ini dipelajari melalui persilangan atau hibridisasi. Gregor Mendel, yang dikenal sebagai \"Bapak Genetika,\" melakukan eksperimen pada tanaman kacang ercis untuk menjelaskan pola pewarisan sifat.\r\n\r\nKonsep Dasar:\r\n- Gen: Unit pewarisan sifat yang terdapat dalam kromosom.\r\n- Aleel: Bentuk alternatif dari suatu gen (contoh: aleel untuk warna bunga merah dan putih).\r\n- Dominan: Sifat yang muncul jika ada setidaknya satu aleel dominan.\r\n- Resesif: Sifat yang hanya muncul jika kedua aleel bersifat resesif.', 'assets/images/materi/pengenalan.png', '2024-12-13 18:06:58', '2024-12-13 22:43:58');
+INSERT INTO `materi` VALUES (2, 'Persilangan Monohibrid', 2, 1, 'Persilangan monohibrid adalah persilangan antara dua individu dengan satu sifat beda. Contohnya, persilangan antara tanaman berbunga merah dan tanaman berbunga putih.\r\n\r\nContoh: \r\n•	Tumbuhan berbunga kuning disilangkan dengan tumbuhan berbunga merah.\r\n•	Kucing berbulu putih dikawinkan dengan kucing berbulu hitam.\r\n•	Wanita berambut lurus menikah dengan laki-laki berambut keriting.\r\n\r\nTipe Persilangan:\r\n1. Dominan Penuh:\r\n- Aleel dominan sepenuhnya menutupi aleel resesif.\r\n- Contoh: Tanaman tinggi (TT) disilangkan dengan tanaman pendek (tt). Keturunan F1 semuanya tinggi (Tt).\r\n- Rasio fenotip F2: 3:1 (Tinggi: Pendek).\r\n\r\n2. Intermediat:\r\n- Tidak ada aleel yang dominan, sehingga sifat keturunan merupakan campuran.\r\n- Contoh: Bunga merah (MM) disilangkan dengan bunga putih (mm). Keturunan F1 adalah merah muda (Mm).\r\n- Rasio fenotip F2: 1:2:1 (Merah: Merah muda: Putih).', 'assets/images/materi/monohibrid.jpg', '2024-12-13 18:06:58', '2024-12-13 22:45:37');
+INSERT INTO `materi` VALUES (3, 'Persilangan Dihibrid', 3, 1, 'Persilangan dihibrid melibatkan dua sifat beda. Contoh, tanaman mangga berbuah besar dan rasa asam disilangkan dengan mangga berbuah kecil dan rasa manis.\r\nPersilangan Dihibrid : Persilangan dengan dua sifat beda.\r\n\r\nPrinsip Utama:\r\n- Menggunakan hukum Mendel II (Asortasi Bebas), kombinasi aleel untuk dua sifat berbeda bersifat independen.\r\n\r\nContoh:\r\n- Parental: Besar, Asam (BBmm) × Kecil, Manis (bbMM).\r\n- F1: Semua keturunan besar dan manis (BbMm).\r\n- F2: Kombinasi sifat dengan rasio fenotip 9:3:3:1:\r\n  * 9 Besar, Manis\r\n  * 3 Besar, Asam\r\n  * 3 Kecil, Manis\r\n  * 1 Kecil, Asam\r\n\r\n- Sapi bertanduk pendek berambut putih dikawinkan dengan sapi bertanduk panjang \r\nberambut hitam. \r\n- Tumbuhan mangga berbuah besar, rasa masam disilangkan dengan mangga berbuah\r\nkecil, rasa manis. ', 'assets/images/materi/dihibrid.jpg', '2024-12-13 18:06:58', '2024-12-13 22:53:10');
 
-INSERT INTO `materi` (`id`, `judul`, `isi`, `gambar`, `created_at`, `updated_at`) VALUES
-(1, 'Persilangan Dihibrida', 'Persilangan dihibrida adalah persilangan dengan melibatkan dua sifat beda. Contoh: bentuk dan warna pada kacang kapri...', NULL, '2024-12-12 11:40:06', '2024-12-12 11:40:06'),
-(2, 'Hukum Mendel', 'Hukum Mendel menjelaskan tentang pewarisan sifat dari induk kepada keturunannya...', NULL, '2024-12-12 11:40:06', '2024-12-12 11:40:06');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `minigame_progress`
---
-
-CREATE TABLE `minigame_progress` (
-  `id` int NOT NULL,
+-- ----------------------------
+-- Table structure for minigame_progress
+-- ----------------------------
+DROP TABLE IF EXISTS `minigame_progress`;
+CREATE TABLE `minigame_progress`  (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `level` int NOT NULL DEFAULT '1',
-  `skor` int NOT NULL DEFAULT '0',
-  `status` varchar(20) DEFAULT 'belum_selesai',
+  `level` int NOT NULL DEFAULT 1,
+  `skor` int NOT NULL DEFAULT 0,
+  `status` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'belum_selesai',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `minigame_progress_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of minigame_progress
+-- ----------------------------
 
---
--- Table structure for table `nilai`
---
-
-CREATE TABLE `nilai` (
-  `id` int NOT NULL,
+-- ----------------------------
+-- Table structure for nilai
+-- ----------------------------
+DROP TABLE IF EXISTS `nilai`;
+CREATE TABLE `nilai`  (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `jenis_tes` varchar(50) NOT NULL,
+  `jenis_tes` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nilai` int NOT NULL,
-  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of nilai
+-- ----------------------------
 
---
--- Table structure for table `soal`
---
-
-CREATE TABLE `soal` (
-  `id` int NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `gambar` varchar(255) DEFAULT NULL,
-  `pilihan_a` varchar(255) NOT NULL,
-  `pilihan_b` varchar(255) NOT NULL,
-  `pilihan_c` varchar(255) NOT NULL,
-  `pilihan_d` varchar(255) NOT NULL,
-  `gambar_pilihan_a` varchar(255) DEFAULT NULL,
-  `gambar_pilihan_b` varchar(255) DEFAULT NULL,
-  `gambar_pilihan_c` varchar(255) DEFAULT NULL,
-  `gambar_pilihan_d` varchar(255) DEFAULT NULL,
-  `jawaban_benar` char(1) NOT NULL,
-  `penjelasan` text,
-  `gambar_penjelasan` varchar(255) DEFAULT NULL,
+-- ----------------------------
+-- Table structure for progress_belajar
+-- ----------------------------
+DROP TABLE IF EXISTS `progress_belajar`;
+CREATE TABLE `progress_belajar`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `materi_selesai` int NOT NULL DEFAULT 0,
+  `latihan_selesai` int NOT NULL DEFAULT 0,
+  `minigame_level` int NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `progress_belajar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `soal`
---
+-- ----------------------------
+-- Records of progress_belajar
+-- ----------------------------
+INSERT INTO `progress_belajar` VALUES (1, 1, 3, 0, 1, '2024-12-12 23:31:37', '2024-12-13 14:42:14');
+INSERT INTO `progress_belajar` VALUES (2, 2, 3, 0, 1, '2024-12-13 14:08:58', '2024-12-13 14:10:16');
 
-INSERT INTO `soal` (`id`, `pertanyaan`, `gambar`, `pilihan_a`, `pilihan_b`, `pilihan_c`, `pilihan_d`, `gambar_pilihan_a`, `gambar_pilihan_b`, `gambar_pilihan_c`, `gambar_pilihan_d`, `jawaban_benar`, `penjelasan`, `gambar_penjelasan`, `created_at`, `updated_at`) VALUES
-(1, 'Perhatikan gambar persilangan dihibrida berikut. Jika terjadi persilangan antara tanaman berbiji bulat kuning (BBKK) dengan tanaman berbiji kisut hijau (bbkk), berapakah ratio fenotip F2?', 'assets/images/soal/soal1.jpg', '9:3:3:1', '9:3:4', '12:3:1', '1:2:1', 'assets/images/pilihan/1a.jpg', 'assets/images/pilihan/1b.jpg', 'assets/images/pilihan/1c.jpg', 'assets/images/pilihan/1d.jpg', 'a', 'Pada persilangan dihibrida, rasio fenotip F2 adalah 9:3:3:1. Hal ini dapat dilihat dari hasil persilangan pada diagram berikut:', 'assets/images/penjelasan/penjelasan1.jpg', '2024-12-12 11:40:27', '2024-12-12 11:40:27');
+-- ----------------------------
+-- Table structure for soal
+-- ----------------------------
+DROP TABLE IF EXISTS `soal`;
+CREATE TABLE `soal`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pertanyaan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `pilihan_a` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pilihan_b` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pilihan_c` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pilihan_d` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban_benar` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'a',
+  `penjelasan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `gambar_penjelasan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `kunci_jawaban` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `step` int NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of soal
+-- ----------------------------
+INSERT INTO `soal` VALUES (1, 'Pak Tri menyilangkan burung love bird berwarna kuning (KK) dengan burung lovebird berwarna hijau (kk). Sifat kuning dominan terhadap hijau. Apabila F1 disilangkan dengan sesamanya akan diperoleh F2 dengan perbandingan genotipe....', NULL, '9 : 3 : 3 : 1', '12 : 3 : 1', '1 : 2 : 1', '3 : 1', 'B', 'Mari saya bantu menjelaskan cara menyelesaikan soal genetika ini.\r\n\r\nJawaban: B. 12:3:1\r\n\r\nPenjelasan:\r\n\r\nDiketahui:\r\n- Burung love bird kuning (KK) >< burung love bird hijau (kk)\r\n- Sifat kuning dominan terhadap hijau\r\n- Ditanya perbandingan F2\r\n\r\nLangkah penyelesaian:\r\n\r\n1. Persilangan P1 (Parental):\r\n   KK (kuning) >< kk (hijau)\r\n   Semua keturunan F1 akan Kk (kuning)\r\n\r\n2. Persilangan F1 x F1:\r\n   Kk >< Kk\r\n   \r\n   Tabel Punnet:\r\n       K    k\r\n     +----+----+\r\n   K | KK | Kk |\r\n     +----+----+\r\n   k | Kk | kk |\r\n     +----+----+\r\n\r\n3. Hasil F2:\r\n   - KK (kuning) = 1\r\n   - Kk (kuning) = 2  \r\n   - kk (hijau) = 1\r\n\r\n4. Perbandingan fenotip F2:\r\n   Kuning : Hijau = (KK + Kk) : kk\r\n   = (1 + 2) : 1\r\n   = 3 : 1\r\n\r\n5. Perbandingan genotip F2:\r\n   KK : Kk : kk\r\n   1 : 2 : 1\r\n   Jika dikalikan 4 menjadi 12:3:1\r\n\r\nJadi, perbandingan genotip F2 adalah 12:3:1', NULL, 'c', 1);
+INSERT INTO `soal` VALUES (2, 'Persilangan antara tanaman mawar merah (RR) dan tanaman mawar putih (rr) menghasilkan keturunan dengan fenotipe merah muda. Apabila F1 yang diperoleh disilangkan dengan sesamanya, perbandingan fenotipe F2 yang diperoleh adalah ....', NULL, '50% merah : 50% putih', '75% merah : 25% putih', '25% merah : 50% merah muda : 25% putih', '50% merah : 25% merah muda : 25% putih', 'a', NULL, NULL, 'c', 2);
 
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `nama_lengkap` varchar(100) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `kelas` varchar(10) NOT NULL,
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama_lengkap` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kelas` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `materi_selesai` int NOT NULL DEFAULT 0,
+  `latihan_selesai` int NOT NULL DEFAULT 0,
+  `minigame_level` int NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `username`(`username` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `users`
---
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (1, 'Denis Akbar', 'bekoy', '$2y$10$H89zfcimS6R3xJmwZY9DJO.Nc419rEDx.Ek19xw97OJLtfPz3RYTe', '7', '2024-12-12 13:25:17', '2024-12-13 14:42:14', 3, 0, 1);
+INSERT INTO `users` VALUES (2, 'Agus', 'agus', '$2y$10$Mr1Iyi3cgGJFMOlk8GgQk.WqtRH0JTl0qWitc7OijNAYfDRtgbiHy', '9', '2024-12-13 14:08:51', '2024-12-13 14:10:16', 3, 0, 1);
 
-INSERT INTO `users` (`id`, `nama_lengkap`, `username`, `password`, `kelas`, `created_at`, `updated_at`) VALUES
-(1, 'Denis Akbar', 'bekoy', '$2y$10$H89zfcimS6R3xJmwZY9DJO.Nc419rEDx.Ek19xw97OJLtfPz3RYTe', '7', '2024-12-12 13:25:17', '2024-12-12 13:25:17');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `materi`
---
-ALTER TABLE `materi`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `minigame_progress`
---
-ALTER TABLE `minigame_progress`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `nilai`
---
-ALTER TABLE `nilai`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `soal`
---
-ALTER TABLE `soal`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `materi`
---
-ALTER TABLE `materi`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `minigame_progress`
---
-ALTER TABLE `minigame_progress`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `nilai`
---
-ALTER TABLE `nilai`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `soal`
---
-ALTER TABLE `soal`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `minigame_progress`
---
-ALTER TABLE `minigame_progress`
-  ADD CONSTRAINT `minigame_progress_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `nilai`
---
-ALTER TABLE `nilai`
-  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;

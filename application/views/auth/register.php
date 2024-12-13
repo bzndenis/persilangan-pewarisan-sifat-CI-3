@@ -32,8 +32,8 @@
                             <label for="kelas" class="form-label">Kelas</label>
                             <select class="form-select" id="kelas" name="kelas">
                                 <option value="">Pilih Kelas</option>
-                                <option value="7">Kelas 7</option>
-                                <option value="8">Kelas 8</option>
+                                <!-- <option value="7">Kelas 7</option>
+                                <option value="8">Kelas 8</option> -->
                                 <option value="9">Kelas 9</option>
                             </select>
                             <?= form_error('kelas', '<small class="text-danger">', '</small>'); ?>

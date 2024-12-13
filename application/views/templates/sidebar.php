@@ -5,6 +5,13 @@
             <span class="fs-4">Genetika App</span>
         </a>
         <hr>
+        <div class="user-info">
+            <?php if(isset($user) && is_array($user)): ?>
+                <p>Selamat datang, <?= isset($user['nama_lengkap']) ? $user['nama_lengkap'] : 'Pengguna' ?></p>
+                <p>Kelas: <?= isset($user['kelas']) ? $user['kelas'] : '-' ?></p>
+            <?php endif; ?>
+        </div>
+        <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 <a href="<?= base_url('dashboard'); ?>" class="nav-link <?= $this->uri->segment(1) == 'dashboard' ? 'active' : 'link-dark'; ?>">
@@ -19,9 +26,9 @@
                 </a>
             </li>
             <li>
-                <a href="<?= base_url('latihan'); ?>" class="nav-link <?= $this->uri->segment(1) == 'latihan' ? 'active' : 'link-dark'; ?>">
+                <a href="<?= base_url('contohsoal'); ?>" class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : 'link-dark'; ?>">
                     <i class="fas fa-tasks me-2"></i>
-                    Latihan
+                    Contoh Soal
                 </a>
             </li>
             <li>
@@ -38,7 +45,7 @@
                 <strong><?= $user['username']; ?></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li>
+                <!-- <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li> -->
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a></li>
             </ul>
@@ -66,8 +73,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= $this->uri->segment(1) == 'latihan' ? 'active' : ''; ?>" href="<?= base_url('latihan'); ?>">
-                        <i class="fas fa-tasks me-2"></i>Latihan
+                    <a class="nav-link <?= $this->uri->segment(1) == 'contoh_soal' ? 'active' : ''; ?>" href="<?= base_url('contohsoal'); ?>">
+                        <i class="fas fa-tasks me-2"></i>Contoh Soal
                     </a>
                 </li>
                 <li class="nav-item">
@@ -81,7 +88,7 @@
                         <?= $user['username']; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li>
+                        <!-- <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li> -->
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a></li>
                     </ul>
