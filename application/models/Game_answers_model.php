@@ -1,0 +1,37 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Game_answers_model extends CI_Model {
+    
+    private $table = 'game_answers';
+    
+    public function save_answers($user_id, $level, $answers) {
+        $existing = $this->db->where('user_id', $user_id)
+                            ->where('level', $level)
+                            ->get($this->table)
+                            ->row();
+                            
+        $data = [
+            'user_id' => $user_id,
+            'level' => $level,
+            'answers' => json_encode($answers)
+        ];
+        
+        if ($existing) {
+            return $this->db->where('user_id', $user_id)
+                           ->where('level', $level)
+                           ->update($this->table, $data);
+        } else {
+            return $this->db->insert($this->table, $data);
+        }
+    }
+    
+    public function get_answers($user_id, $level) {
+        $result = $this->db->where('user_id', $user_id)
+                          ->where('level', $level)
+                          ->get($this->table)
+                          ->row();
+                          
+        return $result ? json_decode($result->answers, true) : null;
+    }
+}
