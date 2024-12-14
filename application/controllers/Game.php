@@ -66,13 +66,34 @@ class Game extends CI_Controller {
         // Decode jawaban benar dari JSON
         $correct_answers = json_decode($game->correct_answers, true);
         
-        // Bandingkan hanya jawaban yang diisi
+        // Bandingkan jawaban dengan pengecekan yang lebih ketat
         $incorrect = [];
         $allAnsweredCorrect = true;
         
         foreach ($answers as $position => $answer) {
-            if (!isset($correct_answers[$position]) || 
-                strtoupper($correct_answers[$position]) !== strtoupper($answer)) {
+            if (!isset($correct_answers[$position])) {
+                $allAnsweredCorrect = false;
+                $incorrect[] = $position;
+                continue;
+            }
+
+            $correct_answer = $correct_answers[$position];
+            $is_valid = true;
+
+            // Validasi panjang string
+            if (strlen($answer) !== strlen($correct_answer)) {
+                $is_valid = false;
+            } else {
+                // Validasi setiap karakter
+                for ($i = 0; $i < strlen($answer); $i++) {
+                    if ($answer[$i] !== $correct_answer[$i]) {
+                        $is_valid = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!$is_valid) {
                 $allAnsweredCorrect = false;
                 $incorrect[] = $position;
             }
@@ -154,9 +175,23 @@ class Game extends CI_Controller {
         // Decode jawaban benar dari JSON
         $correct_answers = json_decode($game->correct_answers, true);
         
-        // Validasi jawaban untuk posisi tertentu
-        $is_correct = isset($correct_answers[$position]) && 
-                     strtoupper($correct_answers[$position]) === strtoupper($answer);
+        // Validasi jawaban untuk posisi tertentu dengan pengecekan yang lebih ketat
+        $is_correct = false;
+        if (isset($correct_answers[$position])) {
+            $correct_answer = $correct_answers[$position];
+            // Validasi panjang string
+            if (strlen($answer) === strlen($correct_answer)) {
+                // Validasi setiap karakter
+                $is_valid = true;
+                for ($i = 0; $i < strlen($answer); $i++) {
+                    if ($answer[$i] !== $correct_answer[$i]) {
+                        $is_valid = false;
+                        break;
+                    }
+                }
+                $is_correct = $is_valid;
+            }
+        }
         
         if ($is_correct) {
             // Simpan jawaban yang benar ke database
