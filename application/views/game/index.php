@@ -1,18 +1,31 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white">
+            <div class="card border-0 shadow-lg game-card">
+                <!-- Header Card dengan Gradient -->
+                <div class="card-header game-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Mini Game Persilangan Pewarisan Sifat</h4>
+                        <div>
+                            <h4 class="mb-0 text-white">Mini Game Persilangan Pewarisan Sifat</h4>
+                            <div class="level-badge">
+                                Level <?= isset($current_level) ? $current_level : 0 ?>
+                            </div>
+                        </div>
+                        <div class="progress-circle">
+                            <div class="progress-circle-inner">
+                                <span class="progress-text">0%</span>
+                            </div>
+                        </div>
                     </div>
-                    <h5 class="mt-2">Level <?= isset($current_level) ? $current_level : 0 ?></h5>
                 </div>
-                <div class="card-body">
 
-                    <!-- Soal -->
+                <div class="card-body p-4">
+                    <!-- Soal dengan styling baru -->
                     <div class="soal-section mb-4">
-                        <h5>Soal:</h5>
+                        <div class="soal-header">
+                            <i class="fas fa-book-open me-2"></i>
+                            <h5 class="mb-0">Soal:</h5>
+                        </div>
                         <div class="description">
                             <?php 
                             // Mengkonversi line breaks menjadi paragraf HTML
@@ -39,63 +52,81 @@
                         </div>
                     </div>
 
-                    <!-- Tabel Punnett -->
-                    <div class="table-responsive mb-4">
-                        <table class="table table-bordered punnett-table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>BK</th>
-                                    <th>Bk</th>
-                                    <th>bK</th>
-                                    <th>bk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                $rows = ['BK', 'Bk', 'bK', 'bk'];
-                                foreach($rows as $i => $row): ?>
-                                <tr>
-                                    <th><?= $row ?></th>
-                                    <?php for($j = 0; $j < 4; $j++): 
-                                        $position = $i . '_' . $j;
-                                        $saved_value = isset($saved_answers[$position]) ? $saved_answers[$position] : '';
-                                    ?>
-                                        <td>
-                                            <input type="text" 
-                                                   class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
-                                                   data-position="<?= $position ?>"
-                                                   value="<?= $saved_value ?>">
-                                        </td>
-                                    <?php endfor; ?>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <!-- Tabel Punnett dengan styling baru -->
+                    <div class="punnett-wrapper mb-4">
+                        <div class="table-responsive">
+                            <table class="table punnett-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>BK</th>
+                                        <th>Bk</th>
+                                        <th>bK</th>
+                                        <th>bk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    $rows = ['BK', 'Bk', 'bK', 'bk'];
+                                    foreach($rows as $i => $row): ?>
+                                    <tr>
+                                        <th><?= $row ?></th>
+                                        <?php for($j = 0; $j < 4; $j++): 
+                                            $position = $i . '_' . $j;
+                                            $saved_value = isset($saved_answers[$position]) ? $saved_answers[$position] : '';
+                                        ?>
+                                            <td>
+                                                <input type="text" 
+                                                       class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
+                                                       data-position="<?= $position ?>"
+                                                       value="<?= $saved_value ?>">
+                                            </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <!-- Tombol Verifikasi -->
+                    <!-- Tombol Verifikasi dengan animasi -->
                     <div class="text-center mb-4">
-                        <button id="verifyButton" class="btn btn-primary">
+                        <button id="verifyButton" class="btn btn-primary btn-lg verify-btn">
                             <i class="fas fa-check me-2"></i>Verifikasi Jawaban
+                            <span class="verify-btn-bg"></span>
                         </button>
                     </div>
 
-                    <!-- Form Rasio Fenotip (awalnya tersembunyi) -->
-                    <div id="ratioForm" class="mt-4" style="display: none;">
-                        <h5>Masukkan Rasio Fenotip:</h5>
-                        <div class="row justify-content-center">
+                    <!-- Form Rasio dengan styling baru -->
+                    <div id="ratioForm" class="mt-4 ratio-form" style="display: none;">
+                        <div class="ratio-header">
+                            <i class="fas fa-calculator me-2"></i>
+                            <h5 class="mb-0">Masukkan Rasio Fenotip:</h5>
+                        </div>
+                        <div class="row justify-content-center mt-3">
                             <div class="col-md-8">
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="ratio1" placeholder="Bulat Kuning">
-                                    <span class="input-group-text">:</span>
-                                    <input type="number" class="form-control" id="ratio2" placeholder="Bulat Hijau">
-                                    <span class="input-group-text">:</span>
-                                    <input type="number" class="form-control" id="ratio3" placeholder="Keriput Kuning">
-                                    <span class="input-group-text">:</span>
-                                    <input type="number" class="form-control" id="ratio4" placeholder="Keriput Hijau">
+                                <div class="ratio-inputs">
+                                    <div class="ratio-input-group">
+                                        <label>Bulat Kuning</label>
+                                        <input type="number" class="form-control" id="ratio1">
+                                    </div>
+                                    <div class="ratio-separator">:</div>
+                                    <div class="ratio-input-group">
+                                        <label>Bulat Hijau</label>
+                                        <input type="number" class="form-control" id="ratio2">
+                                    </div>
+                                    <div class="ratio-separator">:</div>
+                                    <div class="ratio-input-group">
+                                        <label>Keriput Kuning</label>
+                                        <input type="number" class="form-control" id="ratio3">
+                                    </div>
+                                    <div class="ratio-separator">:</div>
+                                    <div class="ratio-input-group">
+                                        <label>Keriput Hijau</label>
+                                        <input type="number" class="form-control" id="ratio4">
+                                    </div>
                                 </div>
-                                <button id="verifyRatio" class="btn btn-success mt-3">
+                                <button id="verifyRatio" class="btn btn-success btn-lg mt-4 verify-ratio-btn">
                                     <i class="fas fa-check-double me-2"></i>Verifikasi Rasio
                                 </button>
                             </div>
@@ -113,70 +144,201 @@
 <audio id="applauseSound" src="<?= base_url('assets/audio/applause.mp3') ?>"></audio>
 
 <style>
-.punnett-table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
+/* Styling untuk card game */
+.game-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.punnett-table td {
-    padding: 0;
+.game-header {
+    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+    padding: 1.5rem;
+    border: none;
+}
+
+/* Level badge */
+.level-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+/* Progress circle */
+.progress-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.progress-circle-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-text {
+    color: #2193b0;
+    font-weight: bold;
+}
+
+/* Soal section styling */
+.soal-header {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 3px solid #e9ecef;
+}
+
+.description {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Punnett table styling */
+.punnett-wrapper {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.punnett-table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.punnett-table th {
+    background: #2193b0;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
 }
 
 .punnett-input {
-    border: none;
-    text-align: center;
-    height: 40px;
-    font-size: 0.9rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.punnett-input:focus {
+    border-color: #2193b0;
+    box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25);
 }
 
 .punnett-input.correct {
     background-color: #d4edda;
-    border-color: #c3e6cb;
+    border-color: #28a745;
+    animation: correctAnswer 0.5s ease;
 }
 
 .punnett-input.incorrect {
     background-color: #f8d7da;
-    border-color: #f5c6cb;
+    border-color: #dc3545;
+    animation: incorrectAnswer 0.5s ease;
 }
 
-.btn {
+/* Verify button styling */
+.verify-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.verify-btn-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+    z-index: -1;
     transition: all 0.3s ease;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* Ratio form styling */
+.ratio-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.description {
-    background-color: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+.ratio-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-.description p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
+.ratio-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.description ul {
-    margin-left: 1.5rem;
+.ratio-input-group {
+    flex: 1;
+    min-width: 120px;
 }
 
-.description li {
-    margin-bottom: 0.5rem;
-    position: relative;
-    padding-left: 1.5rem;
+.ratio-input-group label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
 }
 
-.description li:before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #0d6efd;
+.ratio-separator {
+    font-weight: bold;
+    color: #2193b0;
+    padding: 0 5px;
+}
+
+/* Animations */
+@keyframes correctAnswer {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes incorrectAnswer {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ratio-inputs {
+        flex-direction: column;
+    }
+    
+    .ratio-input-group {
+        width: 100%;
+    }
+    
+    .ratio-separator {
+        transform: rotate(90deg);
+    }
 }
 </style>
 
@@ -314,5 +476,27 @@ $(document).ready(function() {
             }
         });
     });
+
+    function updateProgress(correct, total) {
+        const percentage = Math.round((correct / total) * 100);
+        $('.progress-text').text(percentage + '%');
+    }
+    
+    // Update progress ketika ada jawaban benar
+    $('.punnett-input').on('change', function() {
+        const correctAnswers = $('.punnett-input.correct').length;
+        const totalInputs = $('.punnett-input').length;
+        updateProgress(correctAnswers, totalInputs);
+    });
+    
+    // Tambahkan efek hover pada verify button
+    $('.verify-btn').hover(
+        function() {
+            $(this).find('.verify-btn-bg').css('opacity', '0.9');
+        },
+        function() {
+            $(this).find('.verify-btn-bg').css('opacity', '1');
+        }
+    );
 });
 </script> 
