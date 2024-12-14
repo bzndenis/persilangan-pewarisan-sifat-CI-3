@@ -47,22 +47,4 @@ class Game_answers_model extends CI_Model {
         
         return $this->save_answers($user_id, $level, $existing);
     }
-    
-    public function get_current_game($user_id, $level) {
-        return $this->db->where('user_id', $user_id)
-                        ->where('level', $level)
-                        ->get($this->table)
-                        ->row();
-    }
-    
-    public function save_current_game($user_id, $level, $game_id) {
-        $data = [
-            'user_id' => $user_id,
-            'level' => $level,
-            'game_id' => $game_id,
-            'answers' => '{}' // Inisialisasi jawaban kosong
-        ];
-        
-        return $this->db->insert($this->table, $data);
-    }
 }
