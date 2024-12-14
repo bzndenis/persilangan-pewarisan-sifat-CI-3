@@ -150,6 +150,7 @@ CREATE TABLE `progress_belajar`  (
   `materi_selesai` int NOT NULL DEFAULT 0,
   `latihan_selesai` int NOT NULL DEFAULT 0,
   `minigame_level` int NOT NULL DEFAULT 0,
+  `minigame_progress` INT NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp,
   `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
@@ -160,10 +161,10 @@ CREATE TABLE `progress_belajar`  (
 -- ----------------------------
 -- Records of progress_belajar
 -- ----------------------------
-INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 0, '2024-12-12 23:31:37', '2024-12-13 23:48:49');
-INSERT INTO `progress_belajar` VALUES (2, 2, 3, 0, 0, '2024-12-13 14:08:58', '2024-12-13 23:49:56');
-INSERT INTO `progress_belajar` VALUES (3, 3, 3, 0, 1, '2024-12-13 22:04:44', '2024-12-13 22:07:34');
-INSERT INTO `progress_belajar` VALUES (4, 4, 3, 2, 1, '2024-12-13 22:35:46', '2024-12-13 22:37:52');
+INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 0, 0, '2024-12-12 23:31:37', '2024-12-13 23:48:49');
+INSERT INTO `progress_belajar` VALUES (2, 2, 3, 0, 0, 0, '2024-12-13 14:08:58', '2024-12-13 23:49:56');
+INSERT INTO `progress_belajar` VALUES (3, 3, 3, 0, 1, 0, '2024-12-13 22:04:44', '2024-12-13 22:07:34');
+INSERT INTO `progress_belajar` VALUES (4, 4, 3, 2, 1, 0, '2024-12-13 22:35:46', '2024-12-13 22:37:52');
 
 -- ----------------------------
 -- Table structure for soal

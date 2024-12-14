@@ -25,12 +25,20 @@ class Dashboard extends CI_Controller {
             $progress = $this->progress_model->get_user_progress($user_id);
         }
         
+        // Pastikan minigame_progress memiliki nilai default
+        if (!isset($progress->minigame_progress)) {
+            $progress->minigame_progress = 0;
+            $this->db->where('user_id', $user_id)
+                     ->update('progress_belajar', ['minigame_progress' => 0]);
+        }
+        
         // Gabungkan data user dengan progress
         $user_data = $this->session->userdata();
         $data['user'] = array_merge($user_data, [
             'materi_selesai' => $progress->materi_selesai,
             'latihan_selesai' => $progress->latihan_selesai,
-            'minigame_level' => $progress->minigame_level
+            'minigame_level' => $progress->minigame_level,
+            'minigame_progress' => $progress->minigame_progress
         ]);
         
         $this->load->view('templates/header', $data);

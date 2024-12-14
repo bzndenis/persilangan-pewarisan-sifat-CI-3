@@ -53,6 +53,7 @@ class Game extends CI_Controller {
         
         $answers = $this->input->post('answers');
         $level = $this->input->post('level');
+        $user_id = $this->session->userdata('user_id');
         
         // Ambil jawaban benar dari database
         $this->db->where('level', $level);
@@ -69,6 +70,7 @@ class Game extends CI_Controller {
         // Bandingkan jawaban dengan pengecekan yang lebih ketat
         $incorrect = [];
         $allAnsweredCorrect = true;
+        $correct_count = 0;
         
         foreach ($answers as $position => $answer) {
             if (!isset($correct_answers[$position])) {
@@ -80,11 +82,9 @@ class Game extends CI_Controller {
             $correct_answer = $correct_answers[$position];
             $is_valid = true;
 
-            // Validasi panjang string
             if (strlen($answer) !== strlen($correct_answer)) {
                 $is_valid = false;
             } else {
-                // Validasi setiap karakter
                 for ($i = 0; $i < strlen($answer); $i++) {
                     if ($answer[$i] !== $correct_answer[$i]) {
                         $is_valid = false;
@@ -96,13 +96,23 @@ class Game extends CI_Controller {
             if (!$is_valid) {
                 $allAnsweredCorrect = false;
                 $incorrect[] = $position;
+            } else {
+                $correct_count++;
             }
         }
+        
+        // Update progress di database
+        $this->db->where('user_id', $user_id)
+                 ->update('progress_belajar', [
+                     'minigame_progress' => $correct_count,
+                     'updated_at' => date('Y-m-d H:i:s')
+                 ]);
         
         echo json_encode([
             'success' => $allAnsweredCorrect,
             'correct_answers' => $correct_answers,
-            'incorrect' => $incorrect
+            'incorrect' => $incorrect,
+            'progress' => $correct_count
         ]);
     }
     
@@ -119,6 +129,7 @@ class Game extends CI_Controller {
         ];
         
         $level = $this->input->post('level');
+        $user_id = $this->session->userdata('user_id');
         
         // Pastikan header response adalah JSON
         header('Content-Type: application/json');
@@ -126,12 +137,23 @@ class Game extends CI_Controller {
         $result = $this->game_model->verify_ratio($ratio, $level);
         
         if($result['success']) {
-            $user_id = $this->session->userdata('user_id');
+            // Update progress untuk pertanyaan akhir
+            $current_progress = $this->db->where('user_id', $user_id)
+                                       ->get('progress_belajar')
+                                       ->row()
+                                       ->minigame_progress;
+            
+            $this->db->where('user_id', $user_id)
+                     ->update('progress_belajar', [
+                         'minigame_progress' => $current_progress + 1,
+                         'updated_at' => date('Y-m-d H:i:s')
+                     ]);
+            
             $this->progress_model->update_game_progress($user_id, $level);
         }
         
         echo json_encode($result);
-        exit; // Pastikan tidak ada output lain
+        exit;
     }
     
     public function next_level() {

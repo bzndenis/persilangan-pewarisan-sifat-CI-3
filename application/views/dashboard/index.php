@@ -106,18 +106,18 @@
                             <div class="progress-info">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <h6 class="mb-0">Mini Game</h6>
-                                    <span class="text-sm">Level <?= $user['minigame_level'] ?></span>
+                                    <span class="text-sm"><?= round(($user['minigame_progress']/17)*100) ?>%</span>
                                 </div>
                                 <div class="progress">
                                     <div class="progress-bar bg-warning" role="progressbar" 
-                                         style="width: <?= round(($user['minigame_level']/5)*100) ?>%" 
-                                         aria-valuenow="<?= round(($user['minigame_level']/5)*100) ?>" 
+                                         style="width: <?= round(($user['minigame_progress']/17)*100) ?>%" 
+                                         aria-valuenow="<?= round(($user['minigame_progress']/17)*100) ?>" 
                                          aria-valuemin="0" 
                                          aria-valuemax="100">
                                     </div>
                                 </div>
                                 <small class="text-muted">
-                                    Level <?= $user['minigame_level'] ?> dari 5 level
+                                    <?= $user['minigame_progress'] ?> dari 17 jawaban benar
                                 </small>
                             </div>
                         </div>

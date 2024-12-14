@@ -14,7 +14,8 @@ class Progress_model extends CI_Model {
             'user_id' => $user_id,
             'materi_selesai' => 0,
             'latihan_selesai' => 0,
-            'minigame_level' => 1
+            'minigame_level' => 1,
+            'minigame_progress' => 0
         ];
         
         return $this->db->insert('progress_belajar', $data);
@@ -25,21 +26,12 @@ class Progress_model extends CI_Model {
                        ->update('progress_belajar', $data);
     }
 
-    public function update_game_progress($user_id, $data) {
-        // Validate data array to ensure it has valid column names
-        if (!is_array($data) || empty($data)) {
-            return false;
-        }
-        
-        // Only allow specific columns to be updated
-        $allowed_columns = ['minigame_level'];
-        $filtered_data = array_intersect_key($data, array_flip($allowed_columns));
-        
-        if (empty($filtered_data)) {
-            return false;
-        }
+    public function update_game_progress($user_id, $level) {
+        $data = [
+            'minigame_level' => $level
+        ];
         
         return $this->db->where('user_id', $user_id)
-                       ->update('progress_belajar', $filtered_data);
+                       ->update('progress_belajar', $data);
     }
 } 
