@@ -22,10 +22,34 @@ class Game extends CI_Controller {
         $data['user'] = $this->session->userdata();
         $data['current_level'] = ($this->session->userdata('minigame_level')) ? $this->session->userdata('minigame_level') : 1;
         
-        // Ambil data game dari database
-        $data['game'] = $this->db->where('level', $data['current_level'])
-                                ->get('minigame')
-                                ->row();
+        // Cek apakah user sudah memiliki soal yang tersimpan
+        $saved_game = $this->game_answers_model->get_current_game(
+            $this->session->userdata('user_id'),
+            $data['current_level']
+        );
+        
+        if ($saved_game) {
+            // Jika ada, gunakan soal yang sama
+            $data['game'] = $this->db->where('id', $saved_game->game_id)
+                                    ->get('minigame')
+                                    ->row();
+        } else {
+            // Jika belum, pilih soal secara random
+            $data['game'] = $this->db->where('level', $data['current_level'])
+                                    ->order_by('RAND()')
+                                    ->limit(1)
+                                    ->get('minigame')
+                                    ->row();
+                                    
+            // Simpan id soal yang terpilih
+            if ($data['game']) {
+                $this->game_answers_model->save_current_game(
+                    $this->session->userdata('user_id'),
+                    $data['current_level'],
+                    $data['game']->id
+                );
+            }
+        }
         
         // Ambil jawaban yang tersimpan
         $data['saved_answers'] = $this->game_answers_model->get_answers(

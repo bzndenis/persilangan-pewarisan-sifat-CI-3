@@ -40,15 +40,9 @@
         </ul>
         <hr>
         <div class="dropdown">
-            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong><?= $user['username']; ?></strong>
-            </a>
-            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
-                <!-- <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li> -->
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a></li>
-            </ul>
+            <button class="btn btn-danger" onclick="window.location.href='<?= base_url('auth/logout'); ?>'">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+            </button>
         </div>
     </div>
 </div>
@@ -83,15 +77,9 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <?= $user['username']; ?>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!-- <li><a class="dropdown-item" href="<?= base_url('profile'); ?>">Profile</a></li> -->
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a></li>
-                    </ul>
+                    <button class="btn btn-danger" onclick="window.location.href='<?= base_url('auth/logout'); ?>'">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </button>
                 </li>
             </ul>
         </div>
