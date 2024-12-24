@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : koysmyid_persilangan-sifat
+ Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 101108 (10.11.8-MariaDB-cll-lve)
- Source Host           : 27.0.234.52:3306
- Source Schema         : koysmyid_persilangan-sifat
+ Source Server Version : 80030 (8.0.30)
+ Source Host           : localhost:3306
+ Source Schema         : db_pembelajaran_genetika
 
  Target Server Type    : MySQL
- Target Server Version : 101108 (10.11.8-MariaDB-cll-lve)
+ Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 14/12/2024 05:44:28
+ Date: 14/12/2024 14:40:00
 */
 
 SET NAMES utf8mb4;
@@ -25,18 +25,19 @@ CREATE TABLE `game_answers`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `level` int NOT NULL,
+  `game_id` int NOT NULL,
   `answers` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
-  `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `game_answers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of game_answers
 -- ----------------------------
-INSERT INTO `game_answers` VALUES (3, 1, 1, '{\"0_0\":\"BBKK\"}', '2024-12-13 22:41:49', '2024-12-13 22:41:49');
+INSERT INTO `game_answers` VALUES (8, 1, 1, 0, '{\"0_0\":\"BBKK\",\"0_1\":\"BBKk\",\"2_2\":\"bbKK\",\"2_0\":\"BbKK\",\"3_1\":\"Bbkk\",\"0_2\":\"BbKK\",\"0_3\":\"BbKk\",\"1_0\":\"BBKk\",\"1_1\":\"BBkk\",\"1_2\":\"BbKk\",\"1_3\":\"Bbkk\",\"2_1\":\"BbKk\",\"2_3\":\"bbKk\",\"3_0\":\"BbKk\",\"3_2\":\"bbKk\",\"3_3\":\"bbkk\"}', '2024-12-14 13:07:12', '2024-12-14 14:30:47');
 
 -- ----------------------------
 -- Table structure for game_correct_answers
@@ -47,10 +48,10 @@ CREATE TABLE `game_correct_answers`  (
   `level` int NOT NULL,
   `position` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `correct_answer` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_position`(`level` ASC, `position` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of game_correct_answers
@@ -67,10 +68,10 @@ CREATE TABLE `materi`  (
   `urutan` int NOT NULL DEFAULT 1,
   `isi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `gambar` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
-  `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of materi
@@ -90,15 +91,16 @@ CREATE TABLE `minigame`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `correct_answers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `correct_ratio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of minigame
 -- ----------------------------
 INSERT INTO `minigame` VALUES (1, 1, 'Persilangan Dihibrid Kacang Polong', 'Seorang petani memiliki dua jenis tanaman kacang polong:\r\n- Tanaman pertama memiliki biji bulat dan berwarna kuning (BBKK)\r\n- Tanaman kedua memiliki biji keriput dan berwarna hijau (bbkk)\r\n\r\nJika kedua tanaman ini disilangkan, bagaimana perbandingan fenotip dari keturunan F1 dan F2?\r\n\r\nGenerasi F1:\r\nPersilangan antara tanaman biji bulat kuning (BBKK) dan biji keriput hijau (bbkk)\r\n\r\nParental Genotip: \r\n- BBKK x bbkk\r\n\r\nGamet yang dihasilkan:\r\n- BBKK menghasilkan BK\r\n- bbkk menghasilkan bk\r\n\r\nSemua keturunan F1 akan mendapatkan satu alel dominan dari setiap sifat:\r\nF1 Genotip: BbKk\r\nFenotip F1: Semua biji bulat dan kuning karena dominasi alel B (bulat) dan K (kuning)\r\n\r\nGenerasi F2:\r\nDi generasi F2, kita menyilangkan dua individu F1:\r\nBbKk x BbKk\r\n\r\nMenggunakan tabel Punnett 4x4, kita akan melihat distribusi genotip.\r\nGametes yang dihasilkan dari BbKk: BK, Bk, bK, bk\r\n\r\nBerikut adalah tabel Punnett untuk F2:', '{\r\n    \"0_0\":\"BBKK\", \"0_1\":\"BBKk\", \"0_2\":\"BbKK\", \"0_3\":\"BbKk\",\r\n    \"1_0\":\"BBKk\", \"1_1\":\"BBkk\", \"1_2\":\"BbKk\", \"1_3\":\"Bbkk\",\r\n    \"2_0\":\"BbKK\", \"2_1\":\"BbKk\", \"2_2\":\"bbKK\", \"2_3\":\"bbKk\",\r\n    \"3_0\":\"BbKk\", \"3_1\":\"Bbkk\", \"3_2\":\"bbKk\", \"3_3\":\"bbkk\"\r\n}', '[9,3,3,1]', '2024-12-13 23:59:04', '2024-12-13 22:30:48');
+INSERT INTO `minigame` VALUES (2, 1, 'Persilangan Dihibrid Tanaman Bunga', 'Dalam persilangan tanaman bunga, sifat bunga merah (R) dominan terhadap bunga putih (r), dan sifat batang tinggi (T) dominan terhadap batang pendek (t). Jika dua tanaman heterozigot untuk kedua sifat tersebut disilangkan (RrTt x RrTt), tentukan rasio fenotip dari keturunannya.\r\n\r\nGenerasi F1:\r\nPersilangan antara dua tanaman yang heterozigot untuk bunga merah dan batang tinggi (RrTt).\r\n\r\nMenggunakan tabel Punnett 4x4 untuk RrTt x RrTt:\r\n- Gamet yang dihasilkan dari RrTt: RT, Rt, rT, rt\r\n\r\nBerikut adalah tabel Punnett:', '{\r\n    \"0_0\":\"RRTT\", \"0_1\":\"RRTt\", \"0_2\":\"RrTT\", \"0_3\":\"RrTt\",\r\n    \"1_0\":\"RRTt\", \"1_1\":\"RRtt\", \"1_2\":\"RrTt\", \"1_3\":\"Rrtt\",\r\n    \"2_0\":\"RrTT\", \"2_1\":\"RrTt\", \"2_2\":\"rrTT\", \"2_3\":\"rrTt\",\r\n    \"3_0\":\"RrTt\", \"3_1\":\"Rrtt\", \"3_2\":\"rrTt\", \"3_3\":\"rrtt\"\r\n}', '[9,3,3,1]', '2024-12-13 23:59:04', '2024-12-13 22:30:48');
 
 -- ----------------------------
 -- Table structure for minigame_progress
@@ -110,12 +112,12 @@ CREATE TABLE `minigame_progress`  (
   `level` int NOT NULL DEFAULT 1,
   `skor` int NOT NULL DEFAULT 0,
   `status` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'belum_selesai',
-  `created_at` timestamp NULL DEFAULT current_timestamp,
-  `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `minigame_progress_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of minigame_progress
@@ -130,11 +132,11 @@ CREATE TABLE `nilai`  (
   `user_id` int NOT NULL,
   `jenis_tes` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nilai` int NOT NULL,
-  `tanggal` timestamp NULL DEFAULT current_timestamp,
+  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of nilai
@@ -150,21 +152,26 @@ CREATE TABLE `progress_belajar`  (
   `materi_selesai` int NOT NULL DEFAULT 0,
   `latihan_selesai` int NOT NULL DEFAULT 0,
   `minigame_level` int NOT NULL DEFAULT 0,
-  `minigame_progress` INT NOT NULL DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
-  `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `minigame_progress` int NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `progress_belajar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of progress_belajar
 -- ----------------------------
-INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 0, 0, '2024-12-12 23:31:37', '2024-12-13 23:48:49');
+INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 1, 17, '2024-12-12 23:31:37', '2024-12-14 14:37:36');
 INSERT INTO `progress_belajar` VALUES (2, 2, 3, 0, 0, 0, '2024-12-13 14:08:58', '2024-12-13 23:49:56');
-INSERT INTO `progress_belajar` VALUES (3, 3, 3, 0, 1, 0, '2024-12-13 22:04:44', '2024-12-13 22:07:34');
-INSERT INTO `progress_belajar` VALUES (4, 4, 3, 2, 1, 0, '2024-12-13 22:35:46', '2024-12-13 22:37:52');
+INSERT INTO `progress_belajar` VALUES (3, 3, 3, 2, 0, 0, '2024-12-13 22:04:44', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (4, 4, 3, 2, 0, 0, '2024-12-13 22:35:46', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (5, 5, 0, 0, 0, 0, '2024-12-13 22:56:48', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (6, 6, 3, 2, 0, 0, '2024-12-13 23:19:18', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (7, 7, 0, 2, 0, 0, '2024-12-14 00:58:26', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (8, 8, 3, 2, 0, 0, '2024-12-14 01:46:19', '2024-12-14 13:23:32');
+INSERT INTO `progress_belajar` VALUES (9, 9, 3, 2, 0, 0, '2024-12-14 05:44:08', '2024-12-14 13:23:32');
 
 -- ----------------------------
 -- Table structure for soal
@@ -184,7 +191,7 @@ CREATE TABLE `soal`  (
   `kunci_jawaban` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `step` int NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of soal
@@ -202,14 +209,14 @@ CREATE TABLE `users`  (
   `username` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kelas` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp,
-  `updated_at` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `materi_selesai` int NOT NULL DEFAULT 0,
   `latihan_selesai` int NOT NULL DEFAULT 0,
   `minigame_level` int NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -218,5 +225,10 @@ INSERT INTO `users` VALUES (1, 'Denis Akbar', 'bekoy', '$2y$10$H89zfcimS6R3xJmwZ
 INSERT INTO `users` VALUES (2, 'Agus', 'agus', '$2y$10$Mr1Iyi3cgGJFMOlk8GgQk.WqtRH0JTl0qWitc7OijNAYfDRtgbiHy', '9', '2024-12-13 14:08:51', '2024-12-13 14:10:16', 3, 0, 1);
 INSERT INTO `users` VALUES (3, 'Eva', 'eva123', '$2y$10$nfw1kp7VAHxoOhHc950YDOs1HKzQKNk8bjdkI57fMbKtWHPNThdu6', '9', '2024-12-13 22:03:45', '2024-12-13 22:07:34', 3, 0, 1);
 INSERT INTO `users` VALUES (4, 'Srisunu Widorini', 'Sunu_22', '$2y$10$GR.EBRDvrf6ZN4x6i7GgSuamwbt8NuvlF47XqdLk5BVV.K838uLkC', '9', '2024-12-13 22:35:42', '2024-12-13 22:36:59', 3, 0, 1);
+INSERT INTO `users` VALUES (5, 'ajskdajskld', 'qqwwee', '$2y$10$BpDSEQUrst3dKy3LOJInHedzITZBD16V339h3f/NRk2Kx4fYeZRii', '9', '2024-12-13 22:56:43', '2024-12-13 22:56:43', 0, 0, 1);
+INSERT INTO `users` VALUES (6, 'Koys', 'Bekoy666', '$2y$10$joq76UwjSPPC1.ZVr63NYOwomFcFhMgTvsJo//PyWTKEwb0PWEM6G', '9', '2024-12-13 23:19:08', '2024-12-13 23:19:27', 3, 0, 1);
+INSERT INTO `users` VALUES (7, 'Nigra hety Triwahyuni', 'Hety', '$2y$10$oqPMMmnzQNSyQDYRLWTiue6ny7rpyXDqlfUPaAeebxYq53wgz1g/W', '9', '2024-12-14 00:58:15', '2024-12-14 00:58:15', 0, 0, 1);
+INSERT INTO `users` VALUES (8, 'ADE PUJIANTI RAHAYU', 'Ade Pujianti Rahayu', '$2y$10$TYZo1AfQuEX0NDsP4Ce2GeYOfYHjDB9cfaz04AIfhdQfjldnhuwIu', '9', '2024-12-14 01:45:46', '2024-12-14 01:46:55', 3, 0, 1);
+INSERT INTO `users` VALUES (9, 'Tes', 'Tes123', '$2y$10$y.PJ8afH5TIYk97VORtUv.TWjIZW5JbzcsWbBDXmdBeND0JzFDgRC', '9', '2024-12-14 05:43:59', '2024-12-14 05:44:25', 3, 0, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

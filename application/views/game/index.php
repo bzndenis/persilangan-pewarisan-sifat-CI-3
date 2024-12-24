@@ -13,7 +13,7 @@
                         </div>
                         <div class="progress-circle">
                             <div class="progress-circle-inner">
-                                <span class="progress-text">0%</span>
+                                <span class="progress-text"><?= isset($saved_answers) ? round((count($saved_answers) / 16) * 100) : 0 ?>%</span>
                             </div>
                         </div>
                     </div>
@@ -477,11 +477,31 @@ $(document).ready(function() {
         });
     });
 
+    // Fungsi untuk mengupdate progress circle
     function updateProgress(correct, total) {
         const percentage = Math.round((correct / total) * 100);
         $('.progress-text').text(percentage + '%');
+        
+        // Simpan progress ke database melalui AJAX
+        $.ajax({
+            url: '<?= base_url("game/verify_answer") ?>',
+            type: 'POST',
+            data: {
+                level: <?= $current_level ?>,
+                progress: correct
+            },
+            success: function(response) {
+                // Progress sudah diupdate di database
+                console.log('Progress updated');
+            }
+        });
     }
-    
+
+    // Inisialisasi progress awal
+    const initialProgress = <?= isset($saved_answers) ? count($saved_answers) : 0 ?>;
+    const totalInputs = $('.punnett-input').length;
+    updateProgress(initialProgress, totalInputs);
+
     // Update progress ketika ada jawaban benar
     $('.punnett-input').on('change', function() {
         const correctAnswers = $('.punnett-input.correct').length;
