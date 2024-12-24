@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="gametes-input-group">
-                                    <h5 class="mb-3">Gamet Induk 1 (BbKk)</h5>
+                                    <h5 class="mb-3">Gamet Induk 1</h5>
                                     <div class="d-flex gap-2 mb-3">
                                         <input type="text" class="form-control gametes-input" id="gamete1_1" placeholder="Gamet 1">
                                         <input type="text" class="form-control gametes-input" id="gamete1_2" placeholder="Gamet 2">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="gametes-input-group">
-                                    <h5 class="mb-3">Gamet Induk 2 (BbKk)</h5>
+                                    <h5 class="mb-3">Gamet Induk 2</h5>
                                     <div class="d-flex gap-2 mb-3">
                                         <input type="text" class="form-control gametes-input" id="gamete2_1" placeholder="Gamet 1">
                                         <input type="text" class="form-control gametes-input" id="gamete2_2" placeholder="Gamet 2">
