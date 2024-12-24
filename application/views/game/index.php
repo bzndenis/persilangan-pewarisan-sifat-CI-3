@@ -52,6 +52,39 @@
                         </div>
                     </div>
 
+                    <!-- Tambahkan setelah soal dan sebelum tabel Punnett -->
+                    <div class="gametes-section mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="gametes-input-group">
+                                    <h5 class="mb-3">Gamet Induk 1 (BbKk)</h5>
+                                    <div class="d-flex gap-2 mb-3">
+                                        <input type="text" class="form-control gametes-input" id="gamete1_1" placeholder="Gamet 1">
+                                        <input type="text" class="form-control gametes-input" id="gamete1_2" placeholder="Gamet 2">
+                                        <input type="text" class="form-control gametes-input" id="gamete1_3" placeholder="Gamet 3">
+                                        <input type="text" class="form-control gametes-input" id="gamete1_4" placeholder="Gamet 4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="gametes-input-group">
+                                    <h5 class="mb-3">Gamet Induk 2 (BbKk)</h5>
+                                    <div class="d-flex gap-2 mb-3">
+                                        <input type="text" class="form-control gametes-input" id="gamete2_1" placeholder="Gamet 1">
+                                        <input type="text" class="form-control gametes-input" id="gamete2_2" placeholder="Gamet 2">
+                                        <input type="text" class="form-control gametes-input" id="gamete2_3" placeholder="Gamet 3">
+                                        <input type="text" class="form-control gametes-input" id="gamete2_4" placeholder="Gamet 4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button id="verifyGametes" class="btn btn-primary">
+                                <i class="fas fa-check me-2"></i>Verifikasi Gamet
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Tabel Punnett dengan styling baru -->
                     <div class="punnett-wrapper mb-4">
                         <div class="table-responsive">
@@ -340,6 +373,25 @@
         transform: rotate(90deg);
     }
 }
+
+.gametes-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.gametes-input.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    animation: correctAnswer 0.5s ease;
+}
+
+.gametes-input.incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    animation: incorrectAnswer 0.5s ease;
+}
 </style>
 
 <script>
@@ -518,5 +570,91 @@ $(document).ready(function() {
             $(this).find('.verify-btn-bg').css('opacity', '1');
         }
     );
+
+    // Fungsi untuk memvalidasi gamet
+    function validateGametes() {
+        const correctGametes = ['BK', 'Bk', 'bK', 'bk'];
+        let allCorrect = true;
+        
+        // Validasi gamet induk 1
+        for(let i = 1; i <= 4; i++) {
+            const input = $(`#gamete1_${i}`);
+            const value = input.val().trim();
+            
+            if(correctGametes.includes(value)) {
+                input.removeClass('incorrect').addClass('correct');
+            } else {
+                input.removeClass('correct').addClass('incorrect');
+                allCorrect = false;
+            }
+        }
+        
+        // Validasi gamet induk 2
+        for(let i = 1; i <= 4; i++) {
+            const input = $(`#gamete2_${i}`);
+            const value = input.val().trim();
+            
+            if(correctGametes.includes(value)) {
+                input.removeClass('incorrect').addClass('correct');
+            } else {
+                input.removeClass('correct').addClass('incorrect');
+                allCorrect = false;
+            }
+        }
+
+        // Cek duplikasi
+        function checkDuplicates(selector) {
+            const values = [];
+            let hasDuplicates = false;
+            
+            $(`${selector}`).each(function() {
+                const value = $(this).val().trim();
+                if(values.includes(value)) {
+                    hasDuplicates = true;
+                    $(this).removeClass('correct').addClass('incorrect');
+                }
+                values.push(value);
+            });
+            
+            return !hasDuplicates;
+        }
+
+        const noDuplicates1 = checkDuplicates('.gametes-input[id^="gamete1_"]');
+        const noDuplicates2 = checkDuplicates('.gametes-input[id^="gamete2_"]');
+        
+        if(!noDuplicates1 || !noDuplicates2) {
+            allCorrect = false;
+        }
+
+        if(allCorrect) {
+            correctSound.play();
+            Swal.fire({
+                title: 'Selamat!',
+                text: 'Gamet yang Anda masukkan benar!',
+                icon: 'success',
+                confirmButtonText: 'Lanjutkan'
+            }).then(() => {
+                $('.punnett-table').slideDown();
+                $('#verifyButton').prop('disabled', false);
+            });
+        } else {
+            wrongSound.play();
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Periksa kembali gamet yang Anda masukkan. Pastikan tidak ada duplikasi dan sesuai dengan kemungkinan gamet yang dapat terbentuk.',
+                icon: 'error',
+                confirmButtonText: 'Coba Lagi'
+            });
+        }
+    }
+
+    // Event handler untuk tombol verifikasi gamet
+    $('#verifyGametes').click(function() {
+        validateGametes();
+    });
+
+    // Sembunyikan tabel Punnett dan disable tombol verifikasi awal
+    $('.punnett-table').hide();
+    $('#verifyButton').prop('disabled', true);
 });
 </script> 
