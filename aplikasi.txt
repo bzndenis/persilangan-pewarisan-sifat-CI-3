@@ -1,8 +1,0 @@
-saya ingin membuat aplikasi peembelajaran persilangan pewarisan sifat untuk siswa smp.
-di awali dengan login dan register.
-register terdiri dari nama lengkap, username, password, dan konfirmasi password dan kelas.
-ada sedikit materi yang akan dijelaskan dengan contoh soal.
-ada sedikit latihan soal yang akan dikerjakan dan setelah paham maka akan ada sebuah minigame persilangan pewarisan sifat benbentuk papan catur seperti pada gambar.
-
-saya akan membuat aplikasi ini dengan codeigniter 3 dan database mysql.
-menggunakan bootstrap 5 agar tampilan lebih menarik.

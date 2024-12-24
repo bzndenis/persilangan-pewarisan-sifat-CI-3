@@ -59,10 +59,17 @@
                                 <div class="gametes-input-group">
                                     <h5 class="mb-3">Gamet Induk 1</h5>
                                     <div class="d-flex gap-2 mb-3">
-                                        <input type="text" class="form-control gametes-input" id="gamete1_1" placeholder="Gamet 1">
-                                        <input type="text" class="form-control gametes-input" id="gamete1_2" placeholder="Gamet 2">
-                                        <input type="text" class="form-control gametes-input" id="gamete1_3" placeholder="Gamet 3">
-                                        <input type="text" class="form-control gametes-input" id="gamete1_4" placeholder="Gamet 4">
+                                        <?php 
+                                        $saved_gamete1 = isset($saved_gametes['gamete1']) ? $saved_gametes['gamete1'] : array('', '', '', '');
+                                        for($i = 1; $i <= 4; $i++): 
+                                        ?>
+                                            <input type="text" 
+                                                   class="form-control gametes-input <?= !empty($saved_gamete1[$i-1]) ? 'correct' : '' ?>" 
+                                                   id="gamete1_<?= $i ?>" 
+                                                   placeholder="Gamet <?= $i ?>"
+                                                   value="<?= htmlspecialchars($saved_gamete1[$i-1]) ?>"
+                                                   <?= !empty($saved_gamete1[$i-1]) ? 'readonly' : '' ?>>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                             </div>
@@ -70,19 +77,24 @@
                                 <div class="gametes-input-group">
                                     <h5 class="mb-3">Gamet Induk 2</h5>
                                     <div class="d-flex gap-2 mb-3">
-                                        <input type="text" class="form-control gametes-input" id="gamete2_1" placeholder="Gamet 1">
-                                        <input type="text" class="form-control gametes-input" id="gamete2_2" placeholder="Gamet 2">
-                                        <input type="text" class="form-control gametes-input" id="gamete2_3" placeholder="Gamet 3">
-                                        <input type="text" class="form-control gametes-input" id="gamete2_4" placeholder="Gamet 4">
+                                        <?php 
+                                        $saved_gamete2 = isset($saved_gametes['gamete2']) ? $saved_gametes['gamete2'] : array('', '', '', '');
+                                        for($i = 1; $i <= 4; $i++): 
+                                        ?>
+                                            <input type="text" 
+                                                   class="form-control gametes-input <?= !empty($saved_gamete2[$i-1]) ? 'correct' : '' ?>" 
+                                                   id="gamete2_<?= $i ?>" 
+                                                   placeholder="Gamet <?= $i ?>"
+                                                   value="<?= htmlspecialchars($saved_gamete2[$i-1]) ?>"
+                                                   <?= !empty($saved_gamete2[$i-1]) ? 'readonly' : '' ?>>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button id="verifyGametes" class="btn btn-primary">
-                                <i class="fas fa-check me-2"></i>Verifikasi Gamet
-                            </button>
-                        </div>
+                        <button id="verifyGametes" class="btn btn-primary mt-3" <?= (isset($saved_gametes) && count(array_filter($saved_gamete1)) === 4 && count(array_filter($saved_gamete2)) === 4) ? 'disabled' : '' ?>>
+                            Verifikasi Gamet
+                        </button>
                     </div>
 
                     <!-- Tabel Punnett dengan styling baru -->
@@ -575,13 +587,16 @@ $(document).ready(function() {
     function validateGametes() {
         const correctGametes = ['BK', 'Bk', 'bK', 'bk'];
         let allCorrect = true;
+        let gamete1Values = [];
+        let gamete2Values = [];
         
         // Validasi gamet induk 1
         for(let i = 1; i <= 4; i++) {
             const input = $(`#gamete1_${i}`);
             const value = input.val().trim();
+            gamete1Values.push(value);
             
-            if(correctGametes.includes(value)) {
+            if(correctGametes.includes(value) && !gamete1Values.slice(0, -1).includes(value)) {
                 input.removeClass('incorrect').addClass('correct');
             } else {
                 input.removeClass('correct').addClass('incorrect');
@@ -593,8 +608,9 @@ $(document).ready(function() {
         for(let i = 1; i <= 4; i++) {
             const input = $(`#gamete2_${i}`);
             const value = input.val().trim();
+            gamete2Values.push(value);
             
-            if(correctGametes.includes(value)) {
+            if(correctGametes.includes(value) && !gamete2Values.slice(0, -1).includes(value)) {
                 input.removeClass('incorrect').addClass('correct');
             } else {
                 input.removeClass('correct').addClass('incorrect');
@@ -602,32 +618,18 @@ $(document).ready(function() {
             }
         }
 
-        // Cek duplikasi
-        function checkDuplicates(selector) {
-            const values = [];
-            let hasDuplicates = false;
-            
-            $(`${selector}`).each(function() {
-                const value = $(this).val().trim();
-                if(values.includes(value)) {
-                    hasDuplicates = true;
-                    $(this).removeClass('correct').addClass('incorrect');
-                }
-                values.push(value);
-            });
-            
-            return !hasDuplicates;
-        }
-
-        const noDuplicates1 = checkDuplicates('.gametes-input[id^="gamete1_"]');
-        const noDuplicates2 = checkDuplicates('.gametes-input[id^="gamete2_"]');
+        // Cek apakah semua gamet yang benar sudah digunakan
+        const allGametesUsed = correctGametes.every(g => 
+            gamete1Values.includes(g) && gamete2Values.includes(g)
+        );
         
-        if(!noDuplicates1 || !noDuplicates2) {
-            allCorrect = false;
-        }
-
-        if(allCorrect) {
+        if(allCorrect && allGametesUsed) {
             correctSound.play();
+            saveGametes();
+            
+            // Set readonly pada input yang benar
+            $('.gametes-input').prop('readonly', true);
+            
             Swal.fire({
                 title: 'Selamat!',
                 text: 'Gamet yang Anda masukkan benar!',
@@ -636,6 +638,7 @@ $(document).ready(function() {
             }).then(() => {
                 $('.punnett-table').slideDown();
                 $('#verifyButton').prop('disabled', false);
+                $('#verifyGametes').prop('disabled', true);
             });
         } else {
             wrongSound.play();
@@ -656,5 +659,77 @@ $(document).ready(function() {
     // Sembunyikan tabel Punnett dan disable tombol verifikasi awal
     $('.punnett-table').hide();
     $('#verifyButton').prop('disabled', true);
+
+    function saveGametes() {
+        const gameteData = {
+            level: <?= $current_level ?>,
+            gamete1_1: $('#gamete1_1').val(),
+            gamete1_2: $('#gamete1_2').val(),
+            gamete1_3: $('#gamete1_3').val(),
+            gamete1_4: $('#gamete1_4').val(),
+            gamete2_1: $('#gamete2_1').val(),
+            gamete2_2: $('#gamete2_2').val(),
+            gamete2_3: $('#gamete2_3').val(),
+            gamete2_4: $('#gamete2_4').val()
+        };
+
+        $.ajax({
+            url: '<?= base_url("game/save_gametes") ?>',
+            type: 'POST',
+            data: gameteData,
+            success: function(response) {
+                response = JSON.parse(response);
+                if(response.success) {
+                    console.log('Gametes saved successfully');
+                    location.reload();
+                }
+            }
+        });
+    }
+
+    // Inisialisasi tampilan berdasarkan data tersimpan
+    if($('.gametes-input.correct').length === 8) {
+        $('.punnett-table').show();
+        $('#verifyButton').prop('disabled', false);
+        $('#verifyGametes').prop('disabled', true);
+        $('.gametes-input').prop('readonly', true);
+    } else {
+        $('.punnett-table').hide();
+        $('#verifyButton').prop('disabled', true);
+    }
+
+    // Cek dan inisialisasi data gamet tersimpan
+    <?php if(isset($saved_gametes) && !empty($saved_gametes)): ?>
+        console.log('Loading saved gametes:', <?= json_encode($saved_gametes) ?>);
+        
+        // Isi input dengan data tersimpan
+        const savedGamete1 = <?= json_encode($saved_gametes['gamete1']) ?>;
+        const savedGamete2 = <?= json_encode($saved_gametes['gamete2']) ?>;
+        
+        savedGamete1.forEach((value, index) => {
+            if(value) {
+                $(`#gamete1_${index + 1}`)
+                    .val(value)
+                    .addClass('correct')
+                    .prop('readonly', true);
+            }
+        });
+        
+        savedGamete2.forEach((value, index) => {
+            if(value) {
+                $(`#gamete2_${index + 1}`)
+                    .val(value)
+                    .addClass('correct')
+                    .prop('readonly', true);
+            }
+        });
+        
+        // Jika semua gamet sudah benar
+        if($('.gametes-input.correct').length === 8) {
+            $('.punnett-table').show();
+            $('#verifyButton').prop('disabled', false);
+            $('#verifyGametes').prop('disabled', true);
+        }
+    <?php endif; ?>
 });
 </script> 

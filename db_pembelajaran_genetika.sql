@@ -231,4 +231,20 @@ INSERT INTO `users` VALUES (7, 'Nigra hety Triwahyuni', 'Hety', '$2y$10$oqPMMmnz
 INSERT INTO `users` VALUES (8, 'ADE PUJIANTI RAHAYU', 'Ade Pujianti Rahayu', '$2y$10$TYZo1AfQuEX0NDsP4Ce2GeYOfYHjDB9cfaz04AIfhdQfjldnhuwIu', '9', '2024-12-14 01:45:46', '2024-12-14 01:46:55', 3, 0, 1);
 INSERT INTO `users` VALUES (9, 'Tes', 'Tes123', '$2y$10$y.PJ8afH5TIYk97VORtUv.TWjIZW5JbzcsWbBDXmdBeND0JzFDgRC', '9', '2024-12-14 05:43:59', '2024-12-14 05:44:25', 3, 0, 1);
 
+-- ----------------------------
+-- Table structure for game_gametes
+-- ----------------------------
+DROP TABLE IF EXISTS `game_gametes`;
+CREATE TABLE `game_gametes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `level` int NOT NULL,
+  `gametes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_user_level` (`user_id`,`level`),
+  CONSTRAINT `game_gametes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;

@@ -33,6 +33,14 @@ class Game extends CI_Controller {
             $data['current_level']
         );
         
+        // Tambahkan loading data gamet
+        $saved_gametes = $this->db->get_where('game_gametes', [
+            'user_id' => $this->session->userdata('user_id'),
+            'level' => $data['current_level']
+        ])->row();
+
+        $data['saved_gametes'] = $saved_gametes ? json_decode($saved_gametes->gametes, true) : null;
+        
         if (!$data['game']) {
             $data['game'] = (object)[
                 'title' => 'Level ' . $data['current_level'],
@@ -266,5 +274,38 @@ class Game extends CI_Controller {
             'success' => true,
             'saved_answers' => $saved_answers
         ]);
+    }
+    
+    public function save_gametes() {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('auth/login');
+        }
+
+        $user_id = $this->session->userdata('user_id');
+        $level = $this->input->post('level');
+        $gametes = array(
+            'gamete1' => array(
+                $this->input->post('gamete1_1'),
+                $this->input->post('gamete1_2'),
+                $this->input->post('gamete1_3'),
+                $this->input->post('gamete1_4')
+            ),
+            'gamete2' => array(
+                $this->input->post('gamete2_1'),
+                $this->input->post('gamete2_2'),
+                $this->input->post('gamete2_3'),
+                $this->input->post('gamete2_4')
+            )
+        );
+
+        $data = array(
+            'user_id' => $user_id,
+            'level' => $level,
+            'gametes' => json_encode($gametes)
+        );
+
+        $this->db->replace('game_gametes', $data);
+        
+        echo json_encode(['success' => true]);
     }
 } 
