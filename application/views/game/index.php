@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="gametes-input-group">
-                                    <h5 class="mb-3">Gamet Induk 1</h5>
+                                    <h5 class="mb-3">Gametes Induk 1</h5>
                                     <div class="d-flex gap-2 mb-3">
                                         <?php 
                                         $saved_gamete1 = isset($saved_gametes['gamete1']) ? $saved_gametes['gamete1'] : array('', '', '', '');
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="gametes-input-group">
-                                    <h5 class="mb-3">Gamet Induk 2</h5>
+                                    <h5 class="mb-3">Gametes Induk 2</h5>
                                     <div class="d-flex gap-2 mb-3">
                                         <?php 
                                         $saved_gamete2 = isset($saved_gametes['gamete2']) ? $saved_gametes['gamete2'] : array('', '', '', '');
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <button id="verifyGametes" class="btn btn-primary mt-3" <?= (isset($saved_gametes) && count(array_filter($saved_gamete1)) === 4 && count(array_filter($saved_gamete2)) === 4) ? 'disabled' : '' ?>>
-                            Verifikasi Gamet
+                            Verifikasi Gametes
                         </button>
                     </div>
 
