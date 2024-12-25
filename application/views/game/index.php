@@ -99,38 +99,55 @@
 
                     <!-- Tabel Punnett dengan styling baru -->
                     <div class="punnett-wrapper mb-4">
-                        <div class="table-responsive">
-                            <table class="table punnett-table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>BK</th>
-                                        <th>Bk</th>
-                                        <th>bK</th>
-                                        <th>bk</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    $rows = ['BK', 'Bk', 'bK', 'bk'];
-                                    foreach($rows as $i => $row): ?>
-                                    <tr>
-                                        <th><?= $row ?></th>
-                                        <?php for($j = 0; $j < 4; $j++): 
-                                            $position = $i . '_' . $j;
-                                            $saved_value = isset($saved_answers[$position]) ? $saved_answers[$position] : '';
-                                        ?>
-                                            <td>
-                                                <input type="text" 
-                                                       class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
-                                                       data-position="<?= $position ?>"
-                                                       value="<?= $saved_value ?>">
-                                            </td>
-                                        <?php endfor; ?>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="table punnett-table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>BK</th>
+                                                <th>Bk</th>
+                                                <th>bK</th>
+                                                <th>bk</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                            $rows = ['BK', 'Bk', 'bK', 'bk'];
+                                            foreach($rows as $i => $row): ?>
+                                            <tr>
+                                                <th><?= $row ?></th>
+                                                <?php for($j = 0; $j < 4; $j++): 
+                                                    $position = $i . '_' . $j;
+                                                    $saved_value = isset($saved_answers[$position]) ? $saved_answers[$position] : '';
+                                                ?>
+                                                    <td>
+                                                        <input type="text" 
+                                                               class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
+                                                               data-position="<?= $position ?>"
+                                                               value="<?= $saved_value ?>">
+                                                    </td>
+                                                <?php endfor; ?>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="realtime-illustration">
+                                    <h5 class="text-center mb-3">Visualisasi Jawaban</h5>
+                                    <div class="illustration-box">
+                                        <div class="pea-illustration-realtime">
+                                            <div class="pea-shadow"></div>
+                                            <div class="pea-highlight"></div>
+                                            <div class="wrinkle-pattern"></div>
+                                        </div>
+                                        <div class="genotype-text mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -796,6 +813,87 @@
         );
     z-index: 4;
 }
+
+/* Realtime Illustration Styling */
+.realtime-illustration {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 20px;
+}
+
+.illustration-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+    justify-content: center;
+}
+
+.pea-illustration-realtime {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.genotype-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2193b0;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Tambahkan style untuk text genotype dan phenotype */
+.genotype-text .genotype {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2193b0;
+    margin-bottom: 0.3rem;
+}
+
+.genotype-text .phenotype {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Tambahkan style untuk memastikan ilustrasi terlihat */
+$('<style>')
+    .text(`
+        .pea-illustration-realtime {
+            width: 120px !important;
+            height: 120px !important;
+            display: block !important;
+            margin: 0 auto !important;
+            position: relative !important;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+        }
+        
+        .pea-illustration-realtime.round {
+            border-radius: 50%;
+        }
+        
+        .pea-illustration-realtime.yellow {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+        }
+        
+        .pea-illustration-realtime.green {
+            background: linear-gradient(135deg, #2e8b57, #166835);
+        }
+        
+        .pea-illustration-realtime.wrinkled {
+            clip-path: polygon(
+                30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+                85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+                0% 35%, 15% 15%
+            );
+        }
+    `)
+    .appendTo('head');
 </style>
 
 <script>
@@ -1123,5 +1221,102 @@ $(document).ready(function() {
             $('#verifyGametes').prop('disabled', true);
         }
     <?php endif; ?>
+
+    // Fungsi untuk mengupdate ilustrasi
+    function updateIllustration(genotype) {
+        const illustration = $('.pea-illustration-realtime');
+        const genotypeText = $('.genotype-text');
+        
+        // Reset classes
+        illustration.removeClass('round wrinkled yellow green');
+        illustration.find('.wrinkle-pattern').remove();
+        
+        if (genotype) {
+            // Validasi format genotype
+            if (genotype.length !== 4) {
+                genotypeText.text('Format tidak valid');
+                return;
+            }
+
+            let phenotype = '';
+            
+            // Tentukan fenotipe
+            if (['BBKK', 'BBKk', 'BbKK', 'BbKk'].includes(genotype)) {
+                illustration.addClass('round yellow');
+                phenotype = 'Bulat Kuning';
+            } else if (['BBkk', 'Bbkk'].includes(genotype)) {
+                illustration.addClass('round green');
+                phenotype = 'Bulat Hijau';
+            } else if (['bbKK', 'bbKk'].includes(genotype)) {
+                illustration.addClass('wrinkled yellow');
+                illustration.append('<div class="wrinkle-pattern"></div>');
+                phenotype = 'Keriput Kuning';
+            } else if (genotype === 'bbkk') {
+                illustration.addClass('wrinkled green');
+                illustration.append('<div class="wrinkle-pattern"></div>');
+                phenotype = 'Keriput Hijau';
+            }
+
+            // Tambahkan kelas dan style yang diperlukan
+            illustration.addClass('pea-illustration');
+            illustration.css({
+                'width': '120px',
+                'height': '120px',
+                'display': 'block',
+                'margin': '0 auto',
+                'position': 'relative'
+            });
+            
+            // Update text
+            genotypeText.html(`
+                <div class="genotype">${genotype}</div>
+                <div class="phenotype">${phenotype}</div>
+            `);
+            
+            // Tambahkan animasi
+            illustration.css('transform', 'scale(1.05)');
+            setTimeout(() => {
+                illustration.css('transform', 'scale(1)');
+            }, 200);
+        } else {
+            genotypeText.html(`
+                <div class="genotype">____</div>
+                <div class="phenotype">Masukkan genotype</div>
+            `);
+        }
+    }
+
+    // Event handler untuk input Punnett
+    $('.punnett-input').on('input', function() {
+        const value = $(this).val().trim();
+        
+        if (value.length === 4) {
+            updateIllustration(value);
+            $('.punnett-input').removeClass('active-input');
+            $(this).addClass('active-input');
+        } else {
+            updateIllustration(null);
+        }
+    });
+    
+    // Event handler untuk focus pada input
+    $('.punnett-input').on('focus', function() {
+        const value = $(this).val().trim();
+        $('.punnett-input').removeClass('active-input');
+        $(this).addClass('active-input');
+        if (value.length === 4) {
+            updateIllustration(value);
+        }
+    });
+
+    // Tambahkan style untuk input yang aktif
+    $('<style>')
+        .text(`
+            .punnett-input.active-input {
+                border-color: #2193b0;
+                box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25);
+            }
+        `)
+        .appendTo('head');
 });
 </script> 
