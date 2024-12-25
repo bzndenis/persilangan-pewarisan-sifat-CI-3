@@ -134,6 +134,54 @@
                         </div>
                     </div>
 
+                    <!-- Tambahkan setelah tabel Punnett dan sebelum tombol verifikasi -->
+                    <div class="phenotype-illustrations mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="phenotype-card">
+                                    <div class="phenotype-title">Bulat Kuning</div>
+                                    <div class="phenotype-examples">BBKK, BBKk, BbKK, BbKk</div>
+                                    <div class="pea-illustration round yellow">
+                                        <div class="pea-shadow"></div>
+                                        <div class="pea-highlight"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="phenotype-card">
+                                    <div class="phenotype-title">Bulat Hijau</div>
+                                    <div class="phenotype-examples">BBkk, Bbkk</div>
+                                    <div class="pea-illustration round green">
+                                        <div class="pea-shadow"></div>
+                                        <div class="pea-highlight"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="phenotype-card">
+                                    <div class="phenotype-title">Keriput Kuning</div>
+                                    <div class="phenotype-examples">bbKK, bbKk</div>
+                                    <div class="pea-illustration wrinkled yellow">
+                                        <div class="pea-shadow"></div>
+                                        <div class="pea-highlight"></div>
+                                        <div class="wrinkle-pattern"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="phenotype-card">
+                                    <div class="phenotype-title">Keriput Hijau</div>
+                                    <div class="phenotype-examples">bbkk</div>
+                                    <div class="pea-illustration wrinkled green">
+                                        <div class="pea-shadow"></div>
+                                        <div class="pea-highlight"></div>
+                                        <div class="wrinkle-pattern"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Tombol Verifikasi dengan animasi -->
                     <div class="text-center mb-4">
                         <button id="verifyButton" class="btn btn-primary btn-lg verify-btn">
@@ -403,6 +451,142 @@
     background-color: #f8d7da;
     border-color: #dc3545;
     animation: incorrectAnswer 0.5s ease;
+}
+
+/* Phenotype Illustrations */
+.phenotype-illustrations {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.phenotype-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.phenotype-card:hover {
+    transform: translateY(-5px);
+}
+
+.phenotype-title {
+    font-weight: 600;
+    color: #2193b0;
+    margin-bottom: 0.5rem;
+}
+
+.phenotype-examples {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+.pea-illustration {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 50%;
+}
+
+/* Bulat */
+.pea-illustration.round {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Keriput */
+.pea-illustration.wrinkled {
+    border-radius: 45% 55% 45% 55%;
+    animation: float 3s ease-in-out infinite, wrinkle 8s linear infinite;
+}
+
+/* Warna */
+.pea-illustration.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+}
+
+.pea-illustration.green {
+    background: linear-gradient(135deg, #32cd32, #228b22);
+}
+
+/* Efek bayangan */
+.pea-shadow {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 15px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    filter: blur(5px);
+    animation: shadow 3s ease-in-out infinite;
+}
+
+/* Efek highlight */
+.pea-highlight {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    filter: blur(3px);
+}
+
+/* Pola keriput */
+.wrinkle-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba(0,0,0,0.05) 5px,
+        rgba(0,0,0,0.05) 10px
+    );
+    border-radius: inherit;
+    opacity: 0.5;
+}
+
+/* Animasi */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shadow {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+    50% { transform: translateX(-50%) scale(0.8); opacity: 0.2; }
+}
+
+@keyframes wrinkle {
+    0% { border-radius: 45% 55% 45% 55%; }
+    25% { border-radius: 55% 45% 55% 45%; }
+    50% { border-radius: 45% 55% 45% 55%; }
+    75% { border-radius: 55% 45% 55% 45%; }
+    100% { border-radius: 45% 55% 45% 55%; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .phenotype-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .pea-illustration {
+        width: 80px;
+        height: 80px;
+    }
 }
 </style>
 
