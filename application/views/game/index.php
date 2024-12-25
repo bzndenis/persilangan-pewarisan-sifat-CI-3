@@ -501,8 +501,35 @@
 
 /* Keriput */
 .pea-illustration.wrinkled {
-    border-radius: 45% 55% 45% 55%;
-    animation: float 3s ease-in-out infinite, wrinkle 8s linear infinite;
+    clip-path: polygon(
+        30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+        85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+        0% 35%, 15% 15%
+    );
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    border: none;
+}
+
+/* Tambahan lapisan keriput luar */
+.pea-illustration.wrinkled::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: inherit;
+    filter: brightness(0.9);
+    clip-path: polygon(
+        28% -2%, 72% -2%, 87% 13%, 102% 33%, 102% 67%, 
+        87% 87%, 72% 102%, 28% 102%, 13% 87%, -2% 67%, 
+        -2% 33%, 13% 13%
+    );
+    z-index: -1;
 }
 
 /* Warna */
@@ -511,7 +538,7 @@
 }
 
 .pea-illustration.green {
-    background: linear-gradient(135deg, #32cd32, #228b22);
+    background: linear-gradient(135deg, #2e8b57, #166835);
 }
 
 /* Efek bayangan */
@@ -547,15 +574,130 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 5px,
-        rgba(0,0,0,0.05) 5px,
-        rgba(0,0,0,0.05) 10px
-    );
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,0.1) 3px,
+            rgba(0,0,0,0.1) 6px
+        );
     border-radius: inherit;
-    opacity: 0.5;
+    opacity: 0.8;
+}
+
+/* Tambahan untuk kacang keriput */
+.pea-illustration.wrinkled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 25% 25%, transparent 0%, rgba(0,0,0,0.15) 100%),
+        radial-gradient(circle at 75% 75%, transparent 0%, rgba(0,0,0,0.15) 100%),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            transparent 5%,
+            rgba(0,0,0,0.05) 5%,
+            rgba(0,0,0,0.05) 10%
+        );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.pea-illustration.wrinkled.green {
+    background: linear-gradient(135deg, #2e8b57, #166835);
+    box-shadow: 
+        inset -3px -3px 10px rgba(0,0,0,0.4),
+        inset 3px 3px 10px rgba(255,255,255,0.2),
+        -2px -2px 5px rgba(0,0,0,0.2),
+        2px 2px 5px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+/* Tambahan gelombang sisi untuk kacang keriput */
+.pea-illustration.wrinkled.green::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(0,0,0,0.2) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(0,0,0,0.2) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(0,0,0,0.2) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(0,0,0,0.2) 0%,
+            transparent 50%
+        );
+    border-radius: inherit;
+    z-index: 2;
+}
+
+/* Tambahan tekstur keriput */
+.pea-illustration.wrinkled.green::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            transparent 8px,
+            rgba(0,0,0,0.1) 9px,
+            transparent 10px
+        ),
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0,0,0,0.1) 2px,
+            rgba(0,0,0,0.1) 4px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0,0,0,0.1) 2px,
+            rgba(0,0,0,0.1) 4px
+        );
+    border-radius: inherit;
+    z-index: 3;
+    opacity: 0.7;
+}
+
+/* Efek highlight untuk kacang keriput */
+.pea-illustration.wrinkled .pea-highlight {
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.2) 0%,
+        transparent 50%
+    );
+    filter: blur(2px);
+    opacity: 0.7;
 }
 
 /* Animasi */
@@ -570,11 +712,41 @@
 }
 
 @keyframes wrinkle {
-    0% { border-radius: 45% 55% 45% 55%; }
-    25% { border-radius: 55% 45% 55% 45%; }
-    50% { border-radius: 45% 55% 45% 55%; }
-    75% { border-radius: 55% 45% 55% 45%; }
-    100% { border-radius: 45% 55% 45% 55%; }
+    0% {
+        clip-path: polygon(
+            30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+            85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+            0% 35%, 15% 15%
+        );
+    }
+    50% {
+        clip-path: polygon(
+            35% 0%, 65% 0%, 90% 15%, 100% 30%, 100% 70%, 
+            90% 85%, 65% 100%, 35% 100%, 10% 85%, 0% 70%, 
+            0% 30%, 10% 15%
+        );
+    }
+    100% {
+        clip-path: polygon(
+            30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+            85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+            0% 35%, 15% 15%
+        );
+    }
+}
+
+/* Animasi tambahan untuk efek keriput */
+@keyframes wrinkleTexture {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.05) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.pea-illustration.wrinkled {
+    animation: 
+        float 3s ease-in-out infinite,
+        wrinkle 8s linear infinite,
+        wrinkleTexture 4s ease-in-out infinite;
 }
 
 /* Responsive adjustments */
@@ -587,6 +759,42 @@
         width: 80px;
         height: 80px;
     }
+}
+
+/* Tambahan efek keriput pada tepi */
+.pea-illustration.wrinkled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(
+            circle at 20% 20%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        );
+    z-index: 4;
 }
 </style>
 
