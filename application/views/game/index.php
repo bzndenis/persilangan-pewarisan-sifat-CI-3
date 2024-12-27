@@ -974,6 +974,189 @@ $('<style>')
         float 3s ease-in-out infinite,
         wrinkleMove 4s ease-in-out infinite;
 }
+
+/* Responsive adjustments untuk mobile */
+@media (max-width: 768px) {
+    /* Card dan header adjustments */
+    .game-card {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+    
+    .game-header {
+        padding: 1rem;
+    }
+    
+    .game-header h4 {
+        font-size: 1.1rem;
+    }
+    
+    .level-badge {
+        font-size: 0.9rem;
+        padding: 3px 10px;
+    }
+    
+    .progress-circle {
+        width: 45px;
+        height: 45px;
+    }
+    
+    /* Gametes section adjustments */
+    .gametes-input-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .gametes-input-group h5 {
+        font-size: 1rem;
+    }
+    
+    .d-flex.gap-2 {
+        flex-wrap: wrap;
+    }
+    
+    .gametes-input {
+        width: calc(50% - 5px);
+        margin-bottom: 10px;
+    }
+    
+    /* Punnett table adjustments */
+    .punnett-table {
+        font-size: 0.9rem;
+    }
+    
+    .punnett-table th,
+    .punnett-table td {
+        padding: 8px 4px;
+    }
+    
+    .punnett-input {
+        width: 100%;
+        min-width: 60px;
+        font-size: 0.9rem;
+    }
+    
+    /* Phenotype illustrations adjustments */
+    .phenotype-illustrations {
+        padding: 1rem;
+    }
+    
+    .phenotype-card {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+    
+    .phenotype-title {
+        font-size: 0.9rem;
+    }
+    
+    .phenotype-examples {
+        font-size: 0.8rem;
+    }
+    
+    .pea-illustration {
+        width: 80px;
+        height: 80px;
+    }
+    
+    /* Ratio form adjustments */
+    .ratio-form {
+        padding: 1rem;
+    }
+    
+    .ratio-inputs {
+        flex-direction: column;
+    }
+    
+    .ratio-input-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .ratio-separator {
+        display: none;
+    }
+    
+    /* Button adjustments */
+    .verify-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+    }
+    
+    /* Realtime illustration adjustments */
+    .realtime-illustration {
+        position: relative;
+        top: 0;
+        margin-top: 1rem;
+    }
+    
+    .illustration-box {
+        min-height: 150px;
+    }
+    
+    .pea-illustration-realtime {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .genotype-text {
+        font-size: 1rem;
+    }
+}
+
+/* Tambahan untuk layar sangat kecil */
+@media (max-width: 320px) {
+    .game-header h4 {
+        font-size: 1rem;
+    }
+    
+    .punnett-input {
+        min-width: 50px;
+        font-size: 0.8rem;
+    }
+    
+    .pea-illustration {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Perbaikan layout container */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    
+    .col-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Perbaikan scrolling horizontal */
+.table-responsive {
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
+/* Perbaikan touch interactions */
+@media (hover: none) and (pointer: coarse) {
+    .punnett-input,
+    .gametes-input,
+    .verify-btn {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .verify-btn:active {
+        transform: scale(0.98);
+    }
+}
 </style>
 
 <script>
