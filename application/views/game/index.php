@@ -508,7 +508,8 @@
     height: 100px;
     margin: 0 auto;
     position: relative;
-    border-radius: 50%;
+    border-radius: 47% 53% 53% 47% / 48% 47% 53% 52%;
+    transition: all 0.3s ease;
 }
 
 /* Bulat */
@@ -519,9 +520,9 @@
 /* Keriput */
 .pea-illustration.wrinkled {
     clip-path: polygon(
-        30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
-        85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
-        0% 35%, 15% 15%
+        15% 0%, 25% 12%, 35% 3%, 45% 15%, 55% 5%, 65% 12%, 75% 2%, 85% 10%, 95% 25%, 100% 45%,
+        98% 60%, 95% 70%, 85% 80%, 75% 95%, 65% 85%, 55% 98%, 45% 88%, 35% 100%, 25% 90%, 15% 95%,
+        8% 85%, 2% 70%, 0% 55%, 5% 40%, 2% 25%, 8% 15%
     );
     animation: float 3s ease-in-out infinite;
     position: relative;
@@ -561,27 +562,26 @@
 /* Efek bayangan */
 .pea-shadow {
     position: absolute;
-    bottom: -15px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: 90%;
     height: 15px;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.15);
     border-radius: 50%;
-    filter: blur(5px);
-    animation: shadow 3s ease-in-out infinite;
+    filter: blur(4px);
 }
 
 /* Efek highlight */
 .pea-highlight {
     position: absolute;
-    top: 20%;
-    left: 20%;
+    top: 25%;
+    left: 25%;
     width: 30%;
     height: 30%;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.2);
     border-radius: 50%;
-    filter: blur(3px);
+    filter: blur(5px);
 }
 
 /* Pola keriput */
@@ -719,8 +719,8 @@
 
 /* Animasi */
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(1deg); }
 }
 
 @keyframes shadow {
@@ -869,7 +869,7 @@ $('<style>')
             display: block !important;
             margin: 0 auto !important;
             position: relative !important;
-            border-radius: 50%;
+            border-radius: 47% 53% 53% 47% / 48% 47% 53% 52% !important;
             background-color: #f0f0f0;
         }
         
@@ -882,18 +882,98 @@ $('<style>')
         }
         
         .pea-illustration-realtime.green {
-            background: linear-gradient(135deg, #2e8b57, #166835);
+            background: linear-gradient(135deg, #2d8c57, #1d5c3a) !important;
+            box-shadow: 
+                inset -4px -4px 8px rgba(0,0,0,0.3),
+                inset 4px 4px 8px rgba(255,255,255,0.1),
+                0 2px 4px rgba(0,0,0,0.2) !important;
         }
         
         .pea-illustration-realtime.wrinkled {
-            clip-path: polygon(
-                30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
-                85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
-                0% 35%, 15% 15%
-            );
+            border-radius: 46% 54% 52% 48% / 47% 45% 55% 53% !important;
+            clip-path: none !important;
         }
     `)
     .appendTo('head');
+
+/* Efek Keriput Dasar */
+.pea-illustration.wrinkled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        /* Lekukan tambahan */
+        radial-gradient(circle at 45% 45%, transparent 15px, rgba(0,0,0,0.1) 16px, transparent 17px),
+        radial-gradient(circle at 55% 55%, transparent 15px, rgba(0,0,0,0.1) 16px, transparent 17px),
+        /* Tekstur keriput halus */
+        repeating-linear-gradient(
+            -45deg,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,0.03) 4px,
+            transparent 5px
+        );
+    border-radius: inherit;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+/* Keriput Kuning */
+.pea-illustration.wrinkled.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    box-shadow: 
+        inset -3px -3px 10px rgba(0,0,0,0.3),
+        inset 3px 3px 10px rgba(255,255,255,0.2);
+}
+
+/* Keriput Hijau */
+.pea-illustration.wrinkled.green {
+    background: linear-gradient(135deg, #2e8b57, #166835);
+    box-shadow: 
+        inset -3px -3px 10px rgba(0,0,0,0.4),
+        inset 3px 3px 10px rgba(255,255,255,0.2);
+}
+
+/* Tambahan efek tekstur untuk kedua variasi */
+.pea-illustration.wrinkled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        /* Lekukan dalam */
+        radial-gradient(circle at 30% 30%, rgba(0,0,0,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(0,0,0,0.1) 0%, transparent 50%),
+        /* Tekstur halus */
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0,0,0,0.05) 3px,
+            transparent 4px
+        );
+    border-radius: inherit;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+/* Animasi keriput */
+@keyframes wrinkleMove {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.02) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.pea-illustration.wrinkled {
+    animation: 
+        float 3s ease-in-out infinite,
+        wrinkleMove 4s ease-in-out infinite;
+}
 </style>
 
 <script>
