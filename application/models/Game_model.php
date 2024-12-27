@@ -6,7 +6,7 @@ class Game_model extends CI_Model {
     private $table = 'minigame';
     
     public function get_game_by_level($level) {
-        return $this->db->where('level', $level)
+        return $this->db->where('level', intval($level))
                         ->get($this->table)
                         ->row();
     }
