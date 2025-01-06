@@ -1,0 +1,162 @@
+/* Game Components Styles */
+
+/* Input Components */
+.punnett-input {
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.punnett-input:focus {
+    border-color: #2193b0;
+    box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25);
+}
+
+.punnett-input.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.punnett-input.incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+.punnett-input.active-input {
+    border-color: #2193b0;
+    box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25);
+}
+
+/* Gametes Input */
+.gametes-input {
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.gametes-input.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.gametes-input.incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+/* Buttons */
+.verify-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.verify-btn-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+/* Tables */
+.punnett-table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.punnett-table th {
+    background: #2193b0;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
+}
+
+/* Ratio Input Groups */
+.ratio-input-group {
+    flex: 1;
+    min-width: 120px;
+}
+
+.ratio-input-group label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.ratio-separator {
+    font-weight: bold;
+    color: #2193b0;
+    padding: 0 5px;
+}
+
+/* Phenotype Cards */
+.phenotype-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.phenotype-card:hover {
+    transform: translateY(-5px);
+}
+
+.phenotype-title {
+    font-weight: 600;
+    color: #2193b0;
+    margin-bottom: 0.5rem;
+}
+
+.phenotype-examples {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+/* Realtime Illustration */
+.realtime-illustration {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 20px;
+}
+
+.illustration-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
+    justify-content: center;
+}
+
+.genotype-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2193b0;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.genotype-text .genotype {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2193b0;
+    margin-bottom: 0.3rem;
+}
+
+.genotype-text .phenotype {
+    font-size: 1rem;
+    color: #6c757d;
+} 

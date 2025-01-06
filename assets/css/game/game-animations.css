@@ -1,0 +1,114 @@
+/* Game Animations */
+
+/* Basic Animations */
+@keyframes correctAnswer {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes incorrectAnswer {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(1deg); }
+}
+
+@keyframes shadow {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+    50% { transform: translateX(-50%) scale(0.8); opacity: 0.2; }
+}
+
+/* Wrinkle Animations */
+@keyframes wrinkle {
+    0% {
+        clip-path: polygon(
+            30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+            85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+            0% 35%, 15% 15%
+        );
+    }
+    50% {
+        clip-path: polygon(
+            35% 0%, 65% 0%, 90% 15%, 100% 30%, 100% 70%, 
+            90% 85%, 65% 100%, 35% 100%, 10% 85%, 0% 70%, 
+            0% 30%, 10% 15%
+        );
+    }
+    100% {
+        clip-path: polygon(
+            30% 0%, 70% 0%, 85% 15%, 100% 35%, 100% 65%, 
+            85% 85%, 70% 100%, 30% 100%, 15% 85%, 0% 65%, 
+            0% 35%, 15% 15%
+        );
+    }
+}
+
+@keyframes wrinkleTexture {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.05) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Animation Applications */
+.punnett-input.correct {
+    animation: correctAnswer 0.5s ease;
+}
+
+.punnett-input.incorrect {
+    animation: incorrectAnswer 0.5s ease;
+}
+
+.gametes-input.correct {
+    animation: correctAnswer 0.5s ease;
+}
+
+.gametes-input.incorrect {
+    animation: incorrectAnswer 0.5s ease;
+}
+
+.pea-illustration {
+    animation: float 3s ease-in-out infinite;
+}
+
+.pea-illustration.wrinkled {
+    animation: 
+        float 3s ease-in-out infinite,
+        wrinkle 8s linear infinite,
+        wrinkleTexture 4s ease-in-out infinite;
+}
+
+/* Hover Animations */
+.verify-btn:hover .verify-btn-bg {
+    opacity: 0.9;
+}
+
+.verify-btn:active {
+    transform: scale(0.98);
+}
+
+.phenotype-card {
+    transition: transform 0.3s ease;
+}
+
+.phenotype-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Touch Device Interactions */
+@media (hover: none) and (pointer: coarse) {
+    .punnett-input,
+    .gametes-input,
+    .verify-btn {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .verify-btn:active {
+        transform: scale(0.98);
+    }
+} 

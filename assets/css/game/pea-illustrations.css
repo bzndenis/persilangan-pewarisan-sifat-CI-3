@@ -1,0 +1,191 @@
+/* Pea Illustrations Styles */
+
+/* Base Pea Illustration */
+.pea-illustration {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 47% 53% 53% 47% / 48% 47% 53% 52%;
+    transition: all 0.3s ease;
+}
+
+/* Pea Shadow */
+.pea-shadow {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 15px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 50%;
+    filter: blur(4px);
+}
+
+/* Pea Highlight */
+.pea-highlight {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    filter: blur(5px);
+}
+
+/* Round Pea Styles */
+.pea-illustration.round {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Wrinkled Pea Base */
+.pea-illustration.wrinkled {
+    clip-path: polygon(
+        15% 0%, 25% 12%, 35% 3%, 45% 15%, 55% 5%, 65% 12%, 75% 2%, 85% 10%, 95% 25%, 100% 45%,
+        98% 60%, 95% 70%, 85% 80%, 75% 95%, 65% 85%, 55% 98%, 45% 88%, 35% 100%, 25% 90%, 15% 95%,
+        8% 85%, 2% 70%, 0% 55%, 5% 40%, 2% 25%, 8% 15%
+    );
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    border: none;
+}
+
+/* Wrinkled Pea Outer Layer */
+.pea-illustration.wrinkled::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: inherit;
+    filter: brightness(0.9);
+    clip-path: polygon(
+        28% -2%, 72% -2%, 87% 13%, 102% 33%, 102% 67%, 
+        87% 87%, 72% 102%, 28% 102%, 13% 87%, -2% 67%, 
+        -2% 33%, 13% 13%
+    );
+    z-index: -1;
+}
+
+/* Wrinkle Pattern */
+.wrinkle-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 10%),
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,0.1) 3px,
+            rgba(0,0,0,0.1) 6px
+        );
+    border-radius: inherit;
+    opacity: 0.8;
+}
+
+/* Color Variations */
+.pea-illustration.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+}
+
+.pea-illustration.green {
+    background: linear-gradient(135deg, #2e8b57, #166835);
+}
+
+/* Wrinkled Yellow Pea */
+.pea-illustration.wrinkled.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    box-shadow: 
+        inset -3px -3px 10px rgba(0,0,0,0.3),
+        inset 3px 3px 10px rgba(255,255,255,0.2);
+}
+
+/* Wrinkled Green Pea */
+.pea-illustration.wrinkled.green {
+    background: linear-gradient(135deg, #2e8b57, #166835);
+    box-shadow: 
+        inset -3px -3px 10px rgba(0,0,0,0.4),
+        inset 3px 3px 10px rgba(255,255,255,0.2),
+        -2px -2px 5px rgba(0,0,0,0.2),
+        2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Additional Wrinkle Effects */
+.pea-illustration.wrinkled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(
+            circle at 20% 20%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            transparent 5px,
+            rgba(0,0,0,0.1) 6px,
+            transparent 7px
+        );
+    z-index: 4;
+}
+
+/* Realtime Illustration Specific */
+.pea-illustration-realtime {
+    width: 120px !important;
+    height: 120px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    border-radius: 47% 53% 53% 47% / 48% 47% 53% 52% !important;
+    background-color: #f0f0f0;
+}
+
+.pea-illustration-realtime.round {
+    border-radius: 50%;
+}
+
+.pea-illustration-realtime.yellow {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+}
+
+.pea-illustration-realtime.green {
+    background: linear-gradient(135deg, #2d8c57, #1d5c3a) !important;
+    box-shadow: 
+        inset -4px -4px 8px rgba(0,0,0,0.3),
+        inset 4px 4px 8px rgba(255,255,255,0.1),
+        0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.pea-illustration-realtime.wrinkled {
+    border-radius: 46% 54% 52% 48% / 47% 45% 55% 53% !important;
+    clip-path: none !important;
+} 

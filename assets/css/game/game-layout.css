@@ -1,0 +1,123 @@
+/* Game Layout Styles */
+.container-fluid {
+    padding: 1.5rem;
+}
+
+.game-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.game-header {
+    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+    padding: 1.5rem;
+    border: none;
+}
+
+/* Level badge */
+.level-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+/* Progress circle */
+.progress-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.progress-circle-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-text {
+    color: #2193b0;
+    font-weight: bold;
+}
+
+/* Soal section styling */
+.soal-header {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 3px solid #e9ecef;
+}
+
+.description {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Gametes section */
+.gametes-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Punnett table wrapper */
+.punnett-wrapper {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Ratio form */
+.ratio-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.ratio-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.ratio-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Responsive container adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    
+    .col-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+} 
