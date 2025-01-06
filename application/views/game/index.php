@@ -128,9 +128,8 @@
                                                         <input type="text" 
                                                                class="form-control punnett-input <?= $saved_value ? 'correct' : '' ?>" 
                                                                data-position="<?= $position ?>"
-                                                               value="<?= htmlspecialchars(strtoupper($saved_value)) ?>"
-                                                               maxlength="4"
-                                                               style="text-transform: uppercase;">
+                                                               value="<?= htmlspecialchars($saved_value) ?>"
+                                                               maxlength="4">
                                                     </td>
                                                 <?php endfor; ?>
                                             </tr>
@@ -269,7 +268,7 @@
     // Definisikan variabel global yang dibutuhkan
     const BASE_URL = '<?= base_url() ?>';
     const CURRENT_LEVEL = <?= $current_level ?>;
-</script>
+</script> 
 <!-- Load files dalam urutan yang benar berdasarkan dependensi -->
 <script src="<?= base_url('assets/js/game/game-progress.js') ?>"></script>
 <script src="<?= base_url('assets/js/game/game-init.js') ?>"></script>
