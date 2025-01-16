@@ -322,4 +322,114 @@
     font-size: 1rem;
     color: #666;
     margin-top: 0.5rem;
-} 
+}
+
+/* Tambahkan style untuk kelopak bunga realtime */
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(2), 
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(4), 
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(6) {
+    border-radius: 0px 30px 0px 30px;
+    background: linear-gradient(45deg, #660066, #800080);
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(3), 
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(5), 
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(7) {
+    border-radius: 30px 0px 30px 0px;
+    left: 40px;
+    transform-origin: bottom left;
+    background: linear-gradient(45deg, #9a009a, #800080);
+}
+
+.flower-illustration-realtime.white .rose-petals > div:nth-child(2), 
+.flower-illustration-realtime.white .rose-petals > div:nth-child(4), 
+.flower-illustration-realtime.white .rose-petals > div:nth-child(6) {
+    border-radius: 0px 30px 0px 30px;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.flower-illustration-realtime.white .rose-petals > div:nth-child(3), 
+.flower-illustration-realtime.white .rose-petals > div:nth-child(5), 
+.flower-illustration-realtime.white .rose-petals > div:nth-child(7) {
+    border-radius: 30px 0px 30px 0px;
+    left: 40px;
+    transform-origin: bottom left;
+    background: linear-gradient(45deg, #ffffff, #f8f9fa);
+}
+
+/* Tambahkan style untuk daun realtime */
+.flower-illustration-realtime .leaf-left {
+    top: 40%;
+    transform: rotate(-45deg);
+}
+
+.flower-illustration-realtime .leaf-right {
+    top: 60%;
+    transform: rotate(45deg);
+}
+
+/* Menyesuaikan posisi daun untuk batang pendek realtime */
+.flower-illustration-realtime.short .leaf-left {
+    top: 20%;
+}
+
+.flower-illustration-realtime.short .leaf-right {
+    top: 40%;
+}
+
+/* Posisi daun untuk batang tinggi realtime */
+.flower-illustration-realtime.tall .leaf-left {
+    top: 40%;
+}
+
+.flower-illustration-realtime.tall .leaf-right {
+    top: 60%;
+}
+
+/* Tambahkan animasi kelopak untuk realtime */
+.flower-illustration-realtime .rose-petals > div:nth-child(2) {
+    animation: openRose2 3s ease-in-out forwards;
+    z-index: 5;
+    top: 10px;
+    height: 70px;
+    animation-delay: 2s;
+}
+
+.flower-illustration-realtime .rose-petals > div:nth-child(3) {
+    animation: openRose3 3s ease-in-out forwards;
+    z-index: 4;
+    top: 10px;
+    height: 70px;
+    animation-delay: 2s;
+}
+
+/* Tambahkan efek cahaya untuk realtime */
+.flower-illustration-realtime .glow {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 100%;
+    border: 1px solid rgba(245, 148, 184, 0.47);
+    box-shadow: 0px 0px 10px #f594b8;
+    left: -40px;
+    top: -20px;
+    animation: glowing 2.5s ease-in-out infinite;
+}
+
+/* Tambahkan thorns untuk realtime */
+.flower-illustration-realtime .thorns > div {
+    width: 10px;
+    height: 2px;
+    background: #1a7431;
+    position: absolute;
+    left: -8px;
+}
+
+.flower-illustration-realtime .thorns > div:nth-child(1) { top: 20%; }
+.flower-illustration-realtime .thorns > div:nth-child(2) { top: 40%; }
+.flower-illustration-realtime .thorns > div:nth-child(3) { top: 60%; }
+.flower-illustration-realtime .thorns > div:nth-child(4) { top: 80%; } 
