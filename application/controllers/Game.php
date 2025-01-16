@@ -166,22 +166,21 @@ class Game extends CI_Controller {
     
     public function next_level() {
         $user_id = $this->session->userdata('user_id');
-        $progress = $this->progress_model->get_user_progress($user_id);
+        $current_level = $this->session->userdata('minigame_level');
+        $next_level = $current_level + 1;
         
-        if($progress) {
-            $next_level = $progress->minigame_level + 1;
-            // Cek apakah level berikutnya tersedia
-            if($this->game_model->level_exists($next_level)) {
-                $this->progress_model->update_game_progress($user_id, $next_level);
-                redirect('game');
-            } else {
-                // Jika sudah tidak ada level berikutnya
-                $this->session->set_flashdata('message', 'Selamat! Anda telah menyelesaikan semua level!');
-                redirect('dashboard');
-            }
+        // Cek apakah level berikutnya tersedia
+        if($this->game_model->level_exists($next_level)) {
+            // Update progress user
+            $this->progress_model->update_game_progress($user_id, $next_level);
+            // Update session
+            $this->session->set_userdata('minigame_level', $next_level);
+            redirect('game');
+        } else {
+            // Jika sudah tidak ada level berikutnya
+            $this->session->set_flashdata('message', 'Selamat! Anda telah menyelesaikan semua level!');
+            redirect('dashboard');
         }
-        
-        redirect('game');
     }
     
     public function verify_single_answer() {
