@@ -199,14 +199,15 @@ class Game extends CI_Controller {
             exit('No direct script access allowed');
         }
         
+        $level = $this->input->post('level');
         $position = $this->input->post('position');
         $answer = $this->input->post('answer');
-        $level = $this->input->post('level');
         
-        // Ambil jawaban benar dari database
-        $this->db->where('level', $level);
-        $game = $this->db->get('minigame')->row();
-        
+        // Ambil data game dari database
+        $game = $this->db->where('level', $level)
+                         ->get('minigame')
+                         ->row();
+                         
         if (!$game) {
             echo json_encode(['correct' => false, 'message' => 'Level tidak ditemukan']);
             return;
@@ -215,22 +216,10 @@ class Game extends CI_Controller {
         // Decode jawaban benar dari JSON
         $correct_answers = json_decode($game->correct_answers, true);
         
-        // Validasi jawaban untuk posisi tertentu dengan pengecekan yang lebih ketat
+        // Validasi jawaban
         $is_correct = false;
         if (isset($correct_answers[$position])) {
-            $correct_answer = $correct_answers[$position];
-            // Validasi panjang string
-            if (strlen($answer) === strlen($correct_answer)) {
-                // Validasi setiap karakter
-                $is_valid = true;
-                for ($i = 0; $i < strlen($answer); $i++) {
-                    if ($answer[$i] !== $correct_answer[$i]) {
-                        $is_valid = false;
-                        break;
-                    }
-                }
-                $is_correct = $is_valid;
-            }
+            $is_correct = ($answer === $correct_answers[$position]);
         }
         
         if ($is_correct) {
@@ -255,19 +244,15 @@ class Game extends CI_Controller {
         $position = $this->input->post('position');
         $answer = $this->input->post('answer');
         
-        // Ambil jawaban yang sudah tersimpan
-        $saved_answers = $this->game_answers_model->get_answers($user_id, $level);
-        if (!$saved_answers) {
-            $saved_answers = array();
-        }
+        // Simpan ke database menggunakan model yang sudah diupdate
+        $saved = $this->game_answers_model->save_answers(
+            $user_id, 
+            $level, 
+            $position, 
+            $answer
+        );
         
-        // Update jawaban yang benar
-        $saved_answers[$position] = $answer;
-        
-        // Simpan ke database
-        $this->game_answers_model->save_answers($user_id, $level, $saved_answers);
-        
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => $saved]);
     }
     
     public function get_saved_answers() {

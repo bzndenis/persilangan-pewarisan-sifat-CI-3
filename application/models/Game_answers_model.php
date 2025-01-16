@@ -3,48 +3,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Game_answers_model extends CI_Model {
     
-    private $table = 'game_answers';
-    
-    public function save_answers($user_id, $level, $answers) {
-        $existing = $this->db->where('user_id', $user_id)
-                            ->where('level', $level)
-                            ->get($this->table)
-                            ->row();
-                            
-        $data = [
+    public function save_answers($user_id, $level, $position, $answer) {
+        $data = array(
             'user_id' => $user_id,
             'level' => $level,
-            'answers' => json_encode($answers)
-        ];
+            'position' => $position,
+            'answer' => $answer,
+            'is_correct' => 1
+        );
+        
+        // Cek apakah data sudah ada
+        $existing = $this->db->get_where('game_answers', array(
+            'user_id' => $user_id,
+            'level' => $level,
+            'position' => $position
+        ))->row();
         
         if ($existing) {
-            return $this->db->where('user_id', $user_id)
-                           ->where('level', $level)
-                           ->update($this->table, $data);
+            // Update jika sudah ada
+            $this->db->where(array(
+                'user_id' => $user_id,
+                'level' => $level,
+                'position' => $position
+            ));
+            return $this->db->update('game_answers', $data);
         } else {
-            return $this->db->insert($this->table, $data);
+            // Insert jika belum ada
+            return $this->db->insert('game_answers', $data);
         }
     }
     
     public function get_answers($user_id, $level) {
-        $result = $this->db->where('user_id', $user_id)
-                          ->where('level', $level)
-                          ->get($this->table)
-                          ->row();
-                          
-        return $result ? json_decode($result->answers, true) : null;
-    }
-    
-    public function save_single_answer($user_id, $level, $position, $answer) {
-        $existing = $this->get_answers($user_id, $level);
+        $answers = array();
+        $query = $this->db->get_where('game_answers', array(
+            'user_id' => $user_id,
+            'level' => $level,
+            'is_correct' => 1
+        ));
         
-        if ($existing === null) {
-            $existing = array();
+        foreach ($query->result() as $row) {
+            $answers[$row->position] = $row->answer;
         }
         
-        // Update atau tambah jawaban baru
-        $existing[$position] = $answer;
-        
-        return $this->save_answers($user_id, $level, $existing);
+        return $answers;
+    }
+
+    public function save_single_answer($user_id, $level, $position, $answer) {
+        $data = array(
+            'user_id' => $user_id,
+            'level' => $level,
+            'position' => $position,
+            'answer' => $answer,
+            'is_correct' => 1
+        );
+
+        // Cek apakah data sudah ada
+        $existing = $this->db->get_where('game_answers', array(
+            'user_id' => $user_id,
+            'level' => $level,
+            'position' => $position
+        ))->row();
+
+        if ($existing) {
+            $this->db->where(array(
+                'user_id' => $user_id,
+                'level' => $level,
+                'position' => $position
+            ));
+            return $this->db->update('game_answers', $data);
+        } else {
+            return $this->db->insert('game_answers', $data);
+        }
     }
 }

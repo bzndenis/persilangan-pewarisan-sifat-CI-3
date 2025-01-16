@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 06/01/2025 22:30:38
+ Date: 16/01/2025 22:32:56
 */
 
 SET NAMES utf8mb4;
@@ -25,22 +25,18 @@ CREATE TABLE `game_answers`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `level` int NOT NULL,
-  `game_id` int NOT NULL,
-  `answers` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `position` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `answer` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `is_correct` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
-  CONSTRAINT `game_answers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `unique_answer`(`user_id` ASC, `level` ASC, `position` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of game_answers
 -- ----------------------------
-INSERT INTO `game_answers` VALUES (8, 1, 1, 0, '{\"1_0\":\"BBKk\",\"2_0\":\"BbKK\",\"3_0\":\"BbKk\",\"0_1\":\"BBKk\",\"1_1\":\"BBkk\",\"2_1\":\"BbKk\",\"3_1\":\"Bbkk\",\"0_2\":\"BbKK\",\"1_2\":\"BbKk\",\"2_2\":\"bbKK\",\"3_2\":\"bbKk\",\"0_3\":\"BbKk\",\"1_3\":\"Bbkk\",\"2_3\":\"bbKk\",\"3_3\":\"bbkk\",\"0_0\":\"BBKK\"}', '2024-12-14 13:07:12', '2024-12-14 14:18:37');
-INSERT INTO `game_answers` VALUES (9, 4, 1, 0, '{\"1_0\":\"BBKk\",\"2_0\":\"BbKK\",\"3_0\":\"BbKk\",\"0_1\":\"BBKk\",\"1_1\":\"BBkk\",\"2_1\":\"BbKk\",\"3_1\":\"Bbkk\",\"0_2\":\"BbKK\",\"1_2\":\"BbKk\",\"2_2\":\"bbKK\",\"3_2\":\"bbKk\",\"0_3\":\"BbKk\",\"1_3\":\"Bbkk\",\"2_3\":\"bbKk\",\"3_3\":\"bbkk\",\"0_0\":\"BBKK\"}', '2024-12-14 09:48:13', '2024-12-14 09:51:30');
-INSERT INTO `game_answers` VALUES (10, 10, 1, 0, '{\"3_3\":\"bbkk\",\"3_1\":\"Bbkk\",\"0_0\":\"BBKK\",\"1_0\":\"BBKk\",\"2_0\":\"BbKK\",\"3_0\":\"BbKk\",\"2_1\":\"BbKk\",\"1_1\":\"BBkk\",\"0_1\":\"BBKk\",\"1_2\":\"BbKk\",\"3_2\":\"bbKk\",\"2_3\":\"bbKk\",\"1_3\":\"Bbkk\",\"0_3\":\"BbKk\",\"0_2\":\"BbKK\",\"2_2\":\"bbKK\"}', '2024-12-16 09:09:02', '2024-12-16 09:13:13');
-INSERT INTO `game_answers` VALUES (11, 11, 1, 0, '{\"0_0\":\"BBKK\",\"0_1\":\"BBKk\",\"0_2\":\"BbKK\",\"1_0\":\"BBKk\",\"1_1\":\"BBkk\",\"1_2\":\"BbKk\",\"1_3\":\"Bbkk\",\"2_0\":\"BbKK\",\"2_1\":\"BbKk\",\"2_2\":\"bbKK\",\"2_3\":\"bbKk\",\"3_0\":\"BbKk\",\"3_1\":\"Bbkk\",\"3_2\":\"bbKk\",\"0_3\":\"BbKk\",\"3_3\":\"bbkk\"}', '2024-12-23 10:02:25', '2024-12-23 10:12:29');
 
 -- ----------------------------
 -- Table structure for game_gametes
@@ -55,14 +51,17 @@ CREATE TABLE `game_gametes`  (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_user_level`(`user_id` ASC, `level` ASC) USING BTREE,
+  INDEX `idx_user_level`(`user_id` ASC, `level` ASC) USING BTREE,
   CONSTRAINT `game_gametes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of game_gametes
 -- ----------------------------
-INSERT INTO `game_gametes` VALUES (3, 1, 1, '{\"gamete1\":[\"BK\",\"bk\",\"Bk\",\"bK\"],\"gamete2\":[\"BK\",\"Bk\",\"bK\",\"bk\"]}', '2024-12-25 17:25:03', '2024-12-25 17:25:03');
 INSERT INTO `game_gametes` VALUES (4, 4, 1, '{\"gamete1\":[\"BK\",\"Bk\",\"bK\",\"bk\"],\"gamete2\":[\"BK\",\"Bk\",\"bK\",\"bk\"]}', '2024-12-26 07:52:23', '2024-12-26 07:52:23');
+INSERT INTO `game_gametes` VALUES (6, 12, 1, '{\"gamete1\":[\"BK\",\"Bk\",\"bK\",\"bk\"],\"gamete2\":[\"BK\",\"Bk\",\"bK\",\"bk\"]}', '2025-01-07 00:01:33', '2025-01-07 00:01:33');
+INSERT INTO `game_gametes` VALUES (7, 1, 1, '{\"gamete1\":[\"BK\",\"Bk\",\"bK\",\"bk\"],\"gamete2\":[\"BK\",\"Bk\",\"bK\",\"bk\"]}', '2025-01-16 12:14:58', '2025-01-16 12:14:58');
+INSERT INTO `game_gametes` VALUES (8, 1, 2, '{\"gamete1\":[\"RT\",\"Rt\",\"rT\",\"rt\"],\"gamete2\":[\"RT\",\"Rt\",\"rT\",\"rt\"]}', '2025-01-16 22:29:36', '2025-01-16 22:29:36');
 
 -- ----------------------------
 -- Table structure for materi
@@ -110,27 +109,6 @@ INSERT INTO `minigame` VALUES (1, 1, 'Persilangan Dihibrid Kacang Polong', 'Seor
 INSERT INTO `minigame` VALUES (2, 2, 'Persilangan Dihibrid Tanaman Bunga', 'Dalam persilangan tanaman bunga, sifat bunga merah (R) dominan terhadap bunga putih (r), dan sifat batang tinggi (T) dominan terhadap batang pendek (t). Jika dua tanaman heterozigot untuk kedua sifat tersebut disilangkan (RrTt x RrTt), tentukan rasio fenotip dari keturunannya.\r\n\r\nGenerasi F1:\r\nPersilangan antara dua tanaman yang heterozigot untuk bunga merah dan batang tinggi (RrTt).\r\n\r\nMenggunakan tabel Punnett 4x4 untuk RrTt x RrTt:\r\n- Gamet yang dihasilkan dari RrTt: RT, Rt, rT, rt\r\n\r\nBerikut adalah tabel Punnett:', '{\r\n    \"0_0\":\"RRTT\", \"0_1\":\"RRTt\", \"0_2\":\"RrTT\", \"0_3\":\"RrTt\",\r\n    \"1_0\":\"RRTt\", \"1_1\":\"RRtt\", \"1_2\":\"RrTt\", \"1_3\":\"Rrtt\",\r\n    \"2_0\":\"RrTT\", \"2_1\":\"RrTt\", \"2_2\":\"rrTT\", \"2_3\":\"rrTt\",\r\n    \"3_0\":\"RrTt\", \"3_1\":\"Rrtt\", \"3_2\":\"rrTt\", \"3_3\":\"rrtt\"\r\n}', '[9,3,3,1]', '2024-12-13 23:59:04', '2025-01-03 22:15:43');
 
 -- ----------------------------
--- Table structure for minigame_progress
--- ----------------------------
-DROP TABLE IF EXISTS `minigame_progress`;
-CREATE TABLE `minigame_progress`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `level` int NOT NULL DEFAULT 1,
-  `skor` int NOT NULL DEFAULT 0,
-  `status` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'belum_selesai',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
-  CONSTRAINT `minigame_progress_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of minigame_progress
--- ----------------------------
-
--- ----------------------------
 -- Table structure for nilai
 -- ----------------------------
 DROP TABLE IF EXISTS `nilai`;
@@ -143,7 +121,7 @@ CREATE TABLE `nilai`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of nilai
@@ -164,13 +142,14 @@ CREATE TABLE `progress_belajar`  (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `idx_user_level`(`user_id` ASC, `minigame_level` ASC) USING BTREE,
   CONSTRAINT `progress_belajar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of progress_belajar
 -- ----------------------------
-INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 2, 0, '2024-12-12 23:31:37', '2025-01-03 23:26:03');
+INSERT INTO `progress_belajar` VALUES (1, 1, 3, 2, 2, 1, '2024-12-12 23:31:37', '2025-01-16 22:30:26');
 INSERT INTO `progress_belajar` VALUES (2, 2, 3, 0, 0, 0, '2024-12-13 14:08:58', '2024-12-14 14:19:27');
 INSERT INTO `progress_belajar` VALUES (3, 3, 3, 2, 0, 0, '2024-12-13 22:04:44', '2024-12-14 13:23:32');
 INSERT INTO `progress_belajar` VALUES (4, 4, 3, 2, 1, 17, '2024-12-13 22:35:46', '2024-12-26 07:53:03');
@@ -180,7 +159,8 @@ INSERT INTO `progress_belajar` VALUES (7, 7, 0, 2, 0, 0, '2024-12-14 00:58:26', 
 INSERT INTO `progress_belajar` VALUES (8, 8, 3, 2, 0, 0, '2024-12-14 01:46:19', '2024-12-14 13:23:32');
 INSERT INTO `progress_belajar` VALUES (9, 9, 3, 2, 0, 0, '2024-12-14 05:44:08', '2024-12-14 13:23:32');
 INSERT INTO `progress_belajar` VALUES (10, 10, 3, 2, 1, 16, '2024-12-16 09:05:13', '2024-12-16 09:17:27');
-INSERT INTO `progress_belajar` VALUES (11, 11, 0, 1, 1, 0, '2024-12-23 10:00:37', '2024-12-23 10:20:06');
+INSERT INTO `progress_belajar` VALUES (11, 11, 0, 1, 1, 0, '2024-12-23 10:00:37', '2025-01-06 22:58:28');
+INSERT INTO `progress_belajar` VALUES (12, 12, 0, 0, 1, 0, '2025-01-06 23:40:32', '2025-01-16 11:59:41');
 
 -- ----------------------------
 -- Table structure for soal
@@ -225,7 +205,7 @@ CREATE TABLE `users`  (
   `minigame_level` int NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
@@ -241,5 +221,28 @@ INSERT INTO `users` VALUES (8, 'ADE PUJIANTI RAHAYU', 'Ade Pujianti Rahayu', '$2
 INSERT INTO `users` VALUES (9, 'Tes', 'Tes123', '$2y$10$y.PJ8afH5TIYk97VORtUv.TWjIZW5JbzcsWbBDXmdBeND0JzFDgRC', '9', '2024-12-14 05:43:59', '2024-12-14 05:44:25', 3, 0, 1);
 INSERT INTO `users` VALUES (10, 'arzel keandre', 'arzel', '$2y$10$Te.vHDCkqonAj1UO7C6gleC7M3PbMOI09fnjWm6d.DaZZrpLhucR.', '9', '2024-12-16 09:04:53', '2024-12-16 09:07:20', 3, 0, 1);
 INSERT INTO `users` VALUES (11, 'eva2', 'Eva2', '$2y$10$mSIcLTP5o.vU/xmLtYSu0.9E76w6NI.zS826gEII8j1zfTqS27CG2', '9', '2024-12-23 10:00:27', '2024-12-23 10:00:27', 0, 0, 1);
+INSERT INTO `users` VALUES (12, 'tes', 'tes', '$2y$10$UO3nKc7lLiLzqAGkNpfGCuRBnDW2N9B0wj3ZFJLqrQRHV0t1zEQMq', '9', '2025-01-06 23:40:26', '2025-01-06 23:40:26', 0, 0, 1);
+
+-- ----------------------------
+-- View structure for view_user_progress
+-- ----------------------------
+DROP VIEW IF EXISTS `view_user_progress`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_user_progress` AS select `u`.`id` AS `user_id`,`u`.`nama_lengkap` AS `nama_lengkap`,`p`.`minigame_level` AS `minigame_level`,`p`.`minigame_progress` AS `minigame_progress`,`p`.`updated_at` AS `last_update` from (`users` `u` left join `progress_belajar` `p` on((`u`.`id` = `p`.`user_id`))) order by `p`.`minigame_level` desc,`p`.`minigame_progress` desc;
+
+-- ----------------------------
+-- Triggers structure for table progress_belajar
+-- ----------------------------
+DROP TRIGGER IF EXISTS `before_progress_insert`;
+delimiter ;;
+CREATE TRIGGER `before_progress_insert` BEFORE INSERT ON `progress_belajar` FOR EACH ROW BEGIN
+    IF NEW.minigame_level IS NULL THEN
+        SET NEW.minigame_level = 1;
+    END IF;
+    IF NEW.minigame_progress IS NULL THEN
+        SET NEW.minigame_progress = 0;
+    END IF;
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

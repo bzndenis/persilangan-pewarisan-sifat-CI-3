@@ -22,18 +22,29 @@ $(document).ready(function() {
                 
                 $('.punnett-input').each(function() {
                     let position = $(this).data('position');
+                    let value = $(this).val();
+                    
                     if(response.incorrect.includes(position)) {
                         $(this).removeClass('correct').addClass('incorrect');
                         gameInit.wrongSound.play();
                     } else {
                         $(this).removeClass('incorrect').addClass('correct');
-                        gameValidation.verifySingleAnswer(position, $(this).val());
+                        gameValidation.verifySingleAnswer(position, value);
                     }
                 });
 
                 if(allCorrect) {
                     gameInit.applauseSound.play();
                     $('#ratioForm').slideDown();
+                    
+                    $.ajax({
+                        url: BASE_URL + 'game/save_progress',
+                        type: 'POST',
+                        data: {
+                            level: CURRENT_LEVEL,
+                            progress: 'punnett_complete'
+                        }
+                    });
                 }
             }
         });

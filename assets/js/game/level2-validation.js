@@ -9,7 +9,9 @@ $(document).ready(function() {
                 level: CURRENT_LEVEL
             },
             success: function(response) {
+                response = JSON.parse(response);
                 if(response.correct) {
+                    // Simpan jawaban yang benar
                     $.ajax({
                         url: BASE_URL + 'game/save_correct_answer',
                         type: 'POST',
@@ -17,6 +19,15 @@ $(document).ready(function() {
                             position: position,
                             answer: answer,
                             level: CURRENT_LEVEL
+                        },
+                        success: function(saveResponse) {
+                            saveResponse = JSON.parse(saveResponse);
+                            if(saveResponse.success) {
+                                $(`[data-position="${position}"]`)
+                                    .removeClass('incorrect')
+                                    .addClass('correct')
+                                    .prop('readonly', true);
+                            }
                         }
                     });
                 }
