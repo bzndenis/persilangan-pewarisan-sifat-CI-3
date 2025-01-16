@@ -1,0 +1,59 @@
+/* Flower illustration styles */
+.flower-illustration {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.flower-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.stem-height {
+    width: 4px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+}
+
+.flower-illustration.red .flower-color {
+    background-color: #dc3545;
+}
+
+.flower-illustration.white .flower-color {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+}
+
+.flower-illustration.tall .stem-height {
+    height: 100px;
+}
+
+.flower-illustration.short .stem-height {
+    height: 50px;
+}
+
+.flower-illustration-realtime {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.flower-illustration-realtime .flower-color {
+    transition: background-color 0.3s ease;
+}
+
+.flower-illustration-realtime .stem-height {
+    transition: height 0.3s ease;
+} 

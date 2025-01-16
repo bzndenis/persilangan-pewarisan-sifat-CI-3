@@ -50,7 +50,17 @@ class Game extends CI_Controller {
         
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('game/index', $data);
+        
+        // Load view berdasarkan level
+        if($data['current_level'] == 1) {
+            $this->load->view('game/index', $data);
+        } else if($data['current_level'] == 2) {
+            $this->load->view('game/level2', $data);
+        } else {
+            // Fallback ke view default jika level tidak dikenali
+            $this->load->view('game/index', $data);
+        }
+        
         $this->load->view('templates/footer');
     }
     
@@ -166,21 +176,22 @@ class Game extends CI_Controller {
     
     public function next_level() {
         $user_id = $this->session->userdata('user_id');
-        $current_level = $this->session->userdata('minigame_level');
-        $next_level = $current_level + 1;
+        $progress = $this->progress_model->get_user_progress($user_id);
         
-        // Cek apakah level berikutnya tersedia
-        if($this->game_model->level_exists($next_level)) {
-            // Update progress user
-            $this->progress_model->update_game_progress($user_id, $next_level);
-            // Update session
-            $this->session->set_userdata('minigame_level', $next_level);
-            redirect('game');
-        } else {
-            // Jika sudah tidak ada level berikutnya
-            $this->session->set_flashdata('message', 'Selamat! Anda telah menyelesaikan semua level!');
-            redirect('dashboard');
+        if($progress) {
+            $next_level = $progress->minigame_level + 1;
+            // Cek apakah level berikutnya tersedia
+            if($this->game_model->level_exists($next_level)) {
+                $this->progress_model->update_game_progress($user_id, $next_level);
+                redirect('game');
+            } else {
+                // Jika sudah tidak ada level berikutnya
+                $this->session->set_flashdata('message', 'Selamat! Anda telah menyelesaikan semua level!');
+                redirect('dashboard');
+            }
         }
+        
+        redirect('game');
     }
     
     public function verify_single_answer() {

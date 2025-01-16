@@ -1,0 +1,84 @@
+/* Animation styles for level 2 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes success {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+.success {
+    animation: success 0.5s ease;
+}
+
+.punnett-input.correct {
+    animation: success 0.5s ease;
+}
+
+.punnett-input.incorrect {
+    animation: shake 0.5s ease;
+}
+
+.verify-btn:active {
+    transform: scale(0.95);
+}
+
+.ratio-form {
+    animation: fadeIn 0.5s ease;
+}
+
+.phenotype-card {
+    animation: fadeIn 0.5s ease;
+    animation-fill-mode: both;
+}
+
+.phenotype-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.phenotype-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.phenotype-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.phenotype-card:nth-child(4) {
+    animation-delay: 0.4s;
+} 

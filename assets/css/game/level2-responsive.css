@@ -1,0 +1,113 @@
+/* Responsive styles for level 2 */
+@media (max-width: 1200px) {
+    .game-card {
+        margin: 1rem;
+    }
+
+    .phenotype-card {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .punnett-table th,
+    .punnett-table td {
+        padding: 0.5rem;
+    }
+
+    .punnett-input {
+        width: 80px !important;
+    }
+
+    .flower-illustration {
+        width: 80px;
+        height: 120px;
+    }
+
+    .flower-color {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-header {
+        padding: 1rem;
+    }
+
+    .progress-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .progress-circle-inner {
+        width: 40px;
+        height: 40px;
+    }
+
+    .gametes-section {
+        flex-direction: column;
+    }
+
+    .gametes-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .phenotype-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .ratio-inputs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ratio-input-group {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .ratio-separator {
+        margin: 0.25rem 0;
+    }
+
+    .verify-ratio-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .game-card {
+        margin: 0.5rem;
+    }
+
+    .soal-section {
+        padding: 1rem;
+    }
+
+    .punnett-table {
+        font-size: 0.9rem;
+    }
+
+    .punnett-input {
+        width: 60px !important;
+        font-size: 0.9rem;
+    }
+
+    .flower-illustration {
+        width: 60px;
+        height: 100px;
+    }
+
+    .flower-color {
+        width: 25px;
+        height: 25px;
+    }
+
+    .verify-btn,
+    .verify-ratio-btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+} 

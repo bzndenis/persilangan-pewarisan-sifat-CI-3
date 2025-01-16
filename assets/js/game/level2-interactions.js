@@ -1,45 +1,13 @@
 $(document).ready(function() {
-    // Tambahkan validasi khusus untuk level 2
-    function validateLevel2Input(input) {
-        let value = input.val().toUpperCase();
-        // Sesuaikan regex dengan pola yang diinginkan untuk level 2
-        if(/^[BbKk]{4}$/.test(value)) {
-            input.removeClass('invalid');
-            $('#verifyButton').prop('disabled', false);
-        } else {
-            input.addClass('invalid');
-            $('#verifyButton').prop('disabled', true);
-        }
-    }
-
-    // Override event handler untuk input di level 2
-    $('.punnett-input').on('input', function() {
-        validateLevel2Input($(this));
-    });
-
-    // Tambahkan animasi feedback
-    function showFeedback(element, isCorrect) {
-        element.addClass('shake');
-        setTimeout(() => {
-            element.removeClass('shake');
-        }, 500);
-        
-        if(isCorrect) {
-            playCorrectSound();
-        } else {
-            playWrongSound();
-        }
-    }
-
-    // Update fungsi verifikasi untuk level 2
+    // Event handler untuk verifikasi jawaban
     $('#verifyButton').click(function() {
         let answers = {};
         $('.punnett-input').each(function() {
             let position = $(this).data('position');
-            answers[position] = $(this).val().toUpperCase();
+            answers[position] = $(this).val();
         });
 
-        $(this).prop('disabled', true);
+        gameInit.disableVerifyButton();
 
         $.ajax({
             url: BASE_URL + 'game/verify_answer',
@@ -50,20 +18,87 @@ $(document).ready(function() {
             },
             success: function(response) {
                 response = JSON.parse(response);
-                handleLevel2Response(response);
+                let allCorrect = response.success;
+                
+                $('.punnett-input').each(function() {
+                    let position = $(this).data('position');
+                    if(response.incorrect.includes(position)) {
+                        $(this).removeClass('correct').addClass('incorrect');
+                        gameInit.wrongSound.play();
+                    } else {
+                        $(this).removeClass('incorrect').addClass('correct');
+                        gameValidation.verifySingleAnswer(position, $(this).val());
+                    }
+                });
+
+                if(allCorrect) {
+                    gameInit.applauseSound.play();
+                    $('#ratioForm').slideDown();
+                }
             }
         });
     });
 
-    function handleLevel2Response(response) {
-        if(response.success) {
-            showSuccessMessage();
-            setTimeout(() => {
-                window.location.href = BASE_URL + 'game/next_level';
-            }, 2000);
-        } else {
-            $('#verifyButton').prop('disabled', false);
-            showErrorMessage();
+    // Event handler untuk verifikasi gamet
+    $('#verifyGametes').click(function() {
+        gameValidation.validateGametes();
+    });
+
+    // Event handler untuk verifikasi rasio
+    $('#verifyRatio').click(function() {
+        $.ajax({
+            url: BASE_URL + 'game/verify_ratio',
+            type: 'POST',
+            data: {
+                ratio1: $('#ratio1').val(),
+                ratio2: $('#ratio2').val(),
+                ratio3: $('#ratio3').val(),
+                ratio4: $('#ratio4').val(),
+                level: CURRENT_LEVEL
+            },
+            success: function(response) {
+                if(response.success) {
+                    gameInit.applauseSound.play();
+                    Swal.fire({
+                        title: 'Selamat!',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'Lanjut ke Level Berikutnya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = BASE_URL + 'game/next_level';
+                        }
+                    });
+                } else {
+                    gameInit.wrongSound.play();
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'Coba Lagi'
+                    });
+                }
+            }
+        });
+    });
+
+    // Event handler untuk input punnett
+    $('.punnett-input').on('input', function() {
+        $(this).val($(this).val().toUpperCase());
+        if($(this).val().length === 4) {
+            $(this).blur();
         }
-    }
+    });
+
+    // Event handler untuk input gamet
+    $('.gametes-input').on('input', function() {
+        $(this).val($(this).val().toUpperCase());
+        if($(this).val().length === 2) {
+            $(this).blur();
+            let nextInput = $(this).next('.gametes-input');
+            if(nextInput.length) {
+                nextInput.focus();
+            }
+        }
+    });
 }); 
