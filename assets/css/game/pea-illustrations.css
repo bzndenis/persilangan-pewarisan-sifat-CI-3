@@ -160,13 +160,12 @@
 
 /* Realtime Illustration Specific */
 .pea-illustration-realtime {
-    width: 120px !important;
-    height: 120px !important;
-    display: block !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    border-radius: 47% 53% 53% 47% / 48% 47% 53% 52% !important;
-    background-color: #f0f0f0;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
 .pea-illustration-realtime.round {
@@ -178,14 +177,81 @@
 }
 
 .pea-illustration-realtime.green {
-    background: linear-gradient(135deg, #2d8c57, #1d5c3a) !important;
-    box-shadow: 
-        inset -4px -4px 8px rgba(0,0,0,0.3),
-        inset 4px 4px 8px rgba(255,255,255,0.1),
-        0 2px 4px rgba(0,0,0,0.2) !important;
+    background: linear-gradient(135deg, #228B22, #006400);
 }
 
 .pea-illustration-realtime.wrinkled {
-    border-radius: 46% 54% 52% 48% / 47% 45% 55% 53% !important;
-    clip-path: none !important;
-} 
+    clip-path: polygon(
+        15% 0%, 25% 12%, 35% 3%, 45% 15%, 55% 5%, 65% 12%, 75% 2%, 85% 10%, 95% 25%, 100% 45%,
+        98% 60%, 95% 70%, 85% 80%, 75% 95%, 65% 85%, 55% 98%, 45% 88%, 35% 100%, 25% 90%, 15% 95%,
+        8% 85%, 2% 70%, 0% 55%, 5% 40%, 2% 25%, 8% 15%
+    );
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    border: none;
+    border-radius: 0;
+}
+
+.pea-illustration-realtime.wrinkled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(0,0,0,0.2) 0%,
+        transparent 50%,
+        rgba(255,255,255,0.1) 100%
+    );
+    z-index: 1;
+}
+
+.pea-illustration-realtime.wrinkled .wrinkle-pattern {
+    clip-path: inherit;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.1),
+        rgba(0,0,0,0.1) 3px,
+        transparent 3px,
+        transparent 6px
+    );
+}
+
+.pea-illustration-realtime .pea-shadow {
+    position: absolute;
+    bottom: -5px;
+    left: 10%;
+    right: 10%;
+    height: 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    filter: blur(3px);
+}
+
+.pea-illustration-realtime .pea-highlight {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+}
+
+/* Animasi mengambang */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
