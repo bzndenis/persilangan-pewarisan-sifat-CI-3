@@ -20,7 +20,12 @@ class Game extends CI_Controller {
     public function index() {
         $data['title'] = 'Mini Game';
         $data['user'] = $this->session->userdata();
-        $data['current_level'] = ($this->session->userdata('minigame_level')) ? $this->session->userdata('minigame_level') : 1;
+        
+        // Ambil level dari tabel progress_belajar
+        $user_progress = $this->progress_model->get_user_progress($this->session->userdata('user_id'));
+        
+        // Set current_level dari progress_belajar
+        $data['current_level'] = $user_progress ? $user_progress->minigame_level : 1;
         
         // Ambil data game dari database
         $data['game'] = $this->db->where('level', $data['current_level'])
