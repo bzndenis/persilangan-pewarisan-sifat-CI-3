@@ -84,7 +84,6 @@ $(document).ready(function() {
 
     // Event handler untuk input punnett
     $('.punnett-input').on('input', function() {
-        $(this).val($(this).val().toUpperCase());
         if($(this).val().length === 4) {
             $(this).blur();
         }
@@ -92,7 +91,6 @@ $(document).ready(function() {
 
     // Event handler untuk input gamet
     $('.gametes-input').on('input', function() {
-        $(this).val($(this).val().toUpperCase());
         if($(this).val().length === 2) {
             $(this).blur();
             let nextInput = $(this).next('.gametes-input');

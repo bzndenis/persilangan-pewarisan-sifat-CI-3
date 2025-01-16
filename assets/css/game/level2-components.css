@@ -3,7 +3,6 @@
     width: 80px !important;
     text-align: center;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 .gametes-input.correct {
@@ -29,7 +28,6 @@
     width: 100px !important;
     text-align: center;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 .punnett-input.correct {

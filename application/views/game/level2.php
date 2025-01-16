@@ -63,9 +63,10 @@
                                             <input type="text" 
                                                    class="form-control gametes-input <?= !empty($saved_gamete1[$i-1]) ? 'correct' : '' ?>" 
                                                    id="gamete1_<?= $i ?>" 
-                                                   placeholder="Gamet <?= $i ?>"
+                                                   placeholder="RT/Rt/rT/rt"
                                                    value="<?= htmlspecialchars($saved_gamete1[$i-1]) ?>"
                                                    maxlength="2"
+                                                   pattern="[RrTt]{2}"
                                                    <?= !empty($saved_gamete1[$i-1]) ? 'readonly' : '' ?>>
                                         <?php endfor; ?>
                                     </div>
@@ -82,9 +83,10 @@
                                             <input type="text" 
                                                    class="form-control gametes-input <?= !empty($saved_gamete2[$i-1]) ? 'correct' : '' ?>" 
                                                    id="gamete2_<?= $i ?>" 
-                                                   placeholder="Gamet <?= $i ?>"
+                                                   placeholder="RT/Rt/rT/rt"
                                                    value="<?= htmlspecialchars($saved_gamete2[$i-1]) ?>"
                                                    maxlength="2"
+                                                   pattern="[RrTt]{2}"
                                                    <?= !empty($saved_gamete2[$i-1]) ? 'readonly' : '' ?>>
                                         <?php endfor; ?>
                                     </div>

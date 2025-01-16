@@ -37,7 +37,7 @@ $(document).ready(function() {
 
     // Listen for input changes
     $('.punnett-input').on('input', function() {
-        const genotype = $(this).val().toUpperCase();
+        const genotype = $(this).val();
         updateFlowerIllustration(genotype);
     });
 

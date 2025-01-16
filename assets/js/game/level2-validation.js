@@ -25,28 +25,45 @@ $(document).ready(function() {
     }
 
     function validateGametes() {
-        const gamete1Values = [];
-        const gamete2Values = [];
+        const correctGametes = ['RT', 'Rt', 'rT', 'rt'];
         let allCorrect = true;
-
-        // Collect gamete values
+        let gamete1Values = [];
+        let gamete2Values = [];
+        
+        // Validasi gamet induk 1
         for(let i = 1; i <= 4; i++) {
-            const gamete1 = $('#gamete1_' + i).val().toUpperCase();
-            const gamete2 = $('#gamete2_' + i).val().toUpperCase();
+            const input = $(`#gamete1_${i}`);
+            const value = input.val().trim();
+            gamete1Values.push(value);
             
-            if(gamete1) gamete1Values.push(gamete1);
-            if(gamete2) gamete2Values.push(gamete2);
+            if(correctGametes.includes(value) && !gamete1Values.slice(0, -1).includes(value)) {
+                input.removeClass('incorrect').addClass('correct');
+            } else {
+                input.removeClass('correct').addClass('incorrect');
+                allCorrect = false;
+            }
+        }
+        
+        // Validasi gamet induk 2
+        for(let i = 1; i <= 4; i++) {
+            const input = $(`#gamete2_${i}`);
+            const value = input.val().trim();
+            gamete2Values.push(value);
+            
+            if(correctGametes.includes(value) && !gamete2Values.slice(0, -1).includes(value)) {
+                input.removeClass('incorrect').addClass('correct');
+            } else {
+                input.removeClass('correct').addClass('incorrect');
+                allCorrect = false;
+            }
         }
 
-        // Validate gametes
-        const correctGametes = ['RT', 'Rt', 'rT', 'rt'];
-        
-        // Check if all required gametes are present
-        allCorrect = correctGametes.every(g => 
+        // Cek apakah semua gamet yang benar sudah digunakan
+        const allGametesUsed = correctGametes.every(g => 
             gamete1Values.includes(g) && gamete2Values.includes(g)
         );
-
-        if(allCorrect) {
+        
+        if(allCorrect && allGametesUsed) {
             gameInit.correctSound.play();
             
             // Save gametes
@@ -55,8 +72,14 @@ $(document).ready(function() {
                 type: 'POST',
                 data: {
                     level: CURRENT_LEVEL,
-                    gamete1: gamete1Values,
-                    gamete2: gamete2Values
+                    gamete1_1: gamete1Values[0],
+                    gamete1_2: gamete1Values[1],
+                    gamete1_3: gamete1Values[2],
+                    gamete1_4: gamete1Values[3],
+                    gamete2_1: gamete2Values[0],
+                    gamete2_2: gamete2Values[1],
+                    gamete2_3: gamete2Values[2],
+                    gamete2_4: gamete2Values[3]
                 },
                 success: function(response) {
                     response = JSON.parse(response);
