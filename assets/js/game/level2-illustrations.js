@@ -6,25 +6,28 @@ $(document).ready(function() {
         const genotypeText = $('.genotype-text');
 
         // Clear previous classes
-        illustration.removeClass('red white tall short');
+        illustration.removeClass('purple white tall short');
         
         if (genotype) {
             // Update flower color based on R allele
             if (genotype.includes('R')) {
-                flowerColor.css('background-color', '#dc3545');
+                flowerColor.css('background-color', '#800080');
+                illustration.addClass('purple');
             } else {
                 flowerColor.css('background-color', '#f8f9fa');
                 flowerColor.css('border', '2px solid #dee2e6');
+                illustration.addClass('white');
             }
 
             // Update stem height based on T allele
             if (genotype.includes('T')) {
                 stemHeight.css('height', '100px');
+                illustration.addClass('tall');
             } else {
                 stemHeight.css('height', '50px');
+                illustration.addClass('short');
             }
 
-            // Update genotype text
             genotypeText.text(genotype);
         } else {
             // Reset illustration

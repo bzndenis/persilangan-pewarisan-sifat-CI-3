@@ -1,59 +1,212 @@
 /* Flower illustration styles */
 .flower-illustration {
     width: 100px;
-    height: 150px;
+    height: 300px;
     position: relative;
     margin: 0 auto;
+    transform: scale(0.6);
 }
 
-.flower-color {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+/* Kelopak bunga */
+.rose-petals {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    top: 20px;
+    left: 0;
 }
 
+.rose-petals > div {
+    width: 45px;
+    height: 80px;
+    position: absolute;
+    transition: all 0.5s ease-out;
+}
+
+/* Warna untuk bunga ungu */
+.flower-illustration.purple .rose-petals > div {
+    background: #800080;
+}
+
+.flower-illustration.purple .rose-petals > div:nth-child(1) {
+    border-radius: 15px;
+    left: 28px;
+    top: -6px;
+    background: linear-gradient(45deg, #800080, #9a009a);
+}
+
+.flower-illustration.purple .rose-petals > div:nth-child(2), 
+.flower-illustration.purple .rose-petals > div:nth-child(4), 
+.flower-illustration.purple .rose-petals > div:nth-child(6) {
+    border-radius: 0px 30px 0px 30px;
+    background: linear-gradient(45deg, #660066, #800080);
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.flower-illustration.purple .rose-petals > div:nth-child(3), 
+.flower-illustration.purple .rose-petals > div:nth-child(5), 
+.flower-illustration.purple .rose-petals > div:nth-child(7) {
+    border-radius: 30px 0px 30px 0px;
+    left: 40px;
+    transform-origin: bottom left;
+    background: linear-gradient(45deg, #9a009a, #800080);
+}
+
+/* Warna untuk bunga putih */
+.flower-illustration.white .rose-petals > div {
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+}
+
+.flower-illustration.white .rose-petals > div:nth-child(1) {
+    border-radius: 15px;
+    left: 20px;
+    top: -6px;
+    background: linear-gradient(45deg, #ffffff, #f8f9fa);
+}
+
+.flower-illustration.white .rose-petals > div:nth-child(2), 
+.flower-illustration.white .rose-petals > div:nth-child(4), 
+.flower-illustration.white .rose-petals > div:nth-child(6) {
+    border-radius: 0px 30px 0px 30px;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.flower-illustration.white .rose-petals > div:nth-child(3), 
+.flower-illustration.white .rose-petals > div:nth-child(5), 
+.flower-illustration.white .rose-petals > div:nth-child(7) {
+    border-radius: 30px 0px 30px 0px;
+    left: 40px;
+    transform-origin: bottom left;
+    background: linear-gradient(45deg, #ffffff, #f8f9fa);
+}
+
+/* Animasi kelopak */
+.rose-petals > div:nth-child(2) {
+    animation: openRose2 3s ease-in-out forwards;
+    z-index: 5;
+    top: 10px;
+    height: 70px;
+    animation-delay: 2s;
+}
+
+.rose-petals > div:nth-child(3) {
+    animation: openRose3 3s ease-in-out forwards;
+    z-index: 4;
+    top: 10px;
+    height: 70px;
+    animation-delay: 2s;
+}
+
+/* Batang dan tinggi */
 .stem-height {
-    width: 4px;
+    width: 6px;
+    background: linear-gradient(to right, #1a7431, #28a745, #1a7431);
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #28a745;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.flower-illustration.red .flower-color {
-    background-color: #dc3545;
-}
-
-.flower-illustration.white .flower-color {
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
-}
-
+/* Perbedaan tinggi batang */
 .flower-illustration.tall .stem-height {
-    height: 100px;
+    height: 200px;
+    top: 80px;
 }
 
 .flower-illustration.short .stem-height {
-    height: 50px;
+    height: 80px;
+    top: 120px;
 }
 
-.flower-illustration-realtime {
-    width: 100px;
-    height: 150px;
-    position: relative;
-    margin: 0 auto;
-    transition: all 0.3s ease;
+/* Daun */
+.leaf {
+    width: 55px;
+    height: 30px;
+    background: linear-gradient(to bottom right, #28a745, #1a7431);
+    position: absolute;
+    border-radius: 100px;
+    left: -25px;
 }
 
-.flower-illustration-realtime .flower-color {
-    transition: background-color 0.3s ease;
+.leaf-left {
+    top: 40%;
+    transform: rotate(-45deg);
 }
 
-.flower-illustration-realtime .stem-height {
-    transition: height 0.3s ease;
+.leaf-right {
+    top: 60%;
+    transform: rotate(45deg);
+}
+
+/* Menyesuaikan posisi daun untuk batang pendek */
+.flower-illustration.short .leaf-left {
+    top: 20%;
+}
+
+.flower-illustration.short .leaf-right {
+    top: 40%;
+}
+
+/* Posisi daun untuk batang tinggi */
+.flower-illustration.tall .leaf-left {
+    top: 40%;
+}
+
+.flower-illustration.tall .leaf-right {
+    top: 60%;
+}
+
+/* Menambahkan koneksi antara bunga dan batang */
+.stem-connector {
+    width: 8px;
+    height: 20px;
+    background: linear-gradient(to right, #1a7431, #28a745, #1a7431);
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Efek cahaya */
+.glow {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 100%;
+    border: 1px solid rgba(245, 148, 184, 0.47);
+    box-shadow: 0px 0px 10px #f594b8;
+    left: -40px;
+    top: -20px;
+    animation: glowing 2.5s ease-in-out infinite;
+}
+
+/* Animasi */
+@keyframes openRose2 {
+    50% {
+        transform: rotate(-90deg);
+        top: 80px;
+        left: 100px;
+    }
+    100% {
+        transform: rotate(-60deg);
+        top: 210px;
+        left: -30px;
+    }
+}
+
+@keyframes openRose3 {
+    100% {
+        transform: rotate(60deg);
+    }
+}
+
+@keyframes glowing {
+    50% {
+        box-shadow: 0px 0px 60px #f594b8;
+    }
 } 

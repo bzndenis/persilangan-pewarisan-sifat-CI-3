@@ -143,7 +143,6 @@
                                     <div class="illustration-box">
                                         <div class="flower-illustration-realtime">
                                             <div class="flower-color"></div>
-                                            <div class="stem-height"></div>
                                         </div>
                                         <div class="genotype-text mt-2"></div>
                                     </div>
@@ -155,43 +154,126 @@
                     <!-- Phenotype Illustrations -->
                     <div class="phenotype-illustrations mb-4">
                         <div class="row">
+                            <!-- Ungu Tinggi -->
                             <div class="col-md-3">
                                 <div class="phenotype-card">
-                                    <div class="phenotype-title">Merah Tinggi</div>
+                                    <div class="phenotype-title">Ungu Tinggi</div>
                                     <div class="phenotype-examples">RRTT, RRTt, RrTT, RrTt</div>
-                                    <div class="flower-illustration red tall">
-                                        <div class="flower-color"></div>
-                                        <div class="stem-height"></div>
+                                    <div class="flower-illustration purple tall">
+                                        <div class="glow"></div>
+                                        <div class="rose-petals">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="stem-connector"></div>
+                                        <div class="stem-height">
+                                            <div class="thorns">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="leaf leaf-left"></div>
+                                            <div class="leaf leaf-right"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Ungu Pendek -->
                             <div class="col-md-3">
                                 <div class="phenotype-card">
-                                    <div class="phenotype-title">Merah Pendek</div>
+                                    <div class="phenotype-title">Ungu Pendek</div>
                                     <div class="phenotype-examples">RRtt, Rrtt</div>
-                                    <div class="flower-illustration red short">
-                                        <div class="flower-color"></div>
-                                        <div class="stem-height"></div>
+                                    <div class="flower-illustration purple short">
+                                        <div class="glow"></div>
+                                        <div class="rose-petals">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="stem-connector"></div>
+                                        <div class="stem-height">
+                                            <div class="thorns">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="leaf leaf-left"></div>
+                                            <div class="leaf leaf-right"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Putih Tinggi -->
                             <div class="col-md-3">
                                 <div class="phenotype-card">
                                     <div class="phenotype-title">Putih Tinggi</div>
                                     <div class="phenotype-examples">rrTT, rrTt</div>
                                     <div class="flower-illustration white tall">
-                                        <div class="flower-color"></div>
-                                        <div class="stem-height"></div>
+                                        <div class="glow"></div>
+                                        <div class="rose-petals">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="stem-connector"></div>
+                                        <div class="stem-height">
+                                            <div class="thorns">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="leaf leaf-left"></div>
+                                            <div class="leaf leaf-right"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Putih Pendek -->
                             <div class="col-md-3">
                                 <div class="phenotype-card">
                                     <div class="phenotype-title">Putih Pendek</div>
                                     <div class="phenotype-examples">rrtt</div>
                                     <div class="flower-illustration white short">
-                                        <div class="flower-color"></div>
-                                        <div class="stem-height"></div>
+                                        <div class="glow"></div>
+                                        <div class="rose-petals">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                        <div class="stem-connector"></div>
+                                        <div class="stem-height">
+                                            <div class="thorns">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="leaf leaf-left"></div>
+                                            <div class="leaf leaf-right"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
