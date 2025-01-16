@@ -209,4 +209,63 @@
     50% {
         box-shadow: 0px 0px 60px #f594b8;
     }
+}
+
+/* Flower illustration styles */
+.flower-illustration-realtime {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    margin: 0 auto;
+    display: none; /* Hidden by default */
+}
+
+.flower-illustration-realtime .flower-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+
+.flower-illustration-realtime .stem-height {
+    width: 4px;
+    background-color: #28a745;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: height 0.3s ease;
+}
+
+.illustration-box {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.genotype-text {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.genotype {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.phenotype {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
 } 

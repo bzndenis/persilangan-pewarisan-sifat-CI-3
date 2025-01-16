@@ -143,6 +143,7 @@
                                     <div class="illustration-box">
                                         <div class="flower-illustration-realtime">
                                             <div class="flower-color"></div>
+                                            <div class="stem-height"></div>
                                         </div>
                                         <div class="genotype-text mt-2"></div>
                                     </div>
