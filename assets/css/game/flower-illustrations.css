@@ -214,35 +214,89 @@
 /* Flower illustration styles */
 .flower-illustration-realtime {
     width: 100px;
-    height: 150px;
+    height: 300px;
     position: relative;
     margin: 0 auto;
+    transform: scale(0.6);
     display: none; /* Hidden by default */
 }
 
-.flower-illustration-realtime .flower-color {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+/* Menggunakan style yang sama dengan flower-illustration */
+.flower-illustration-realtime .rose-petals {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.3s ease;
+    width: 100%;
+    height: 100%;
+    top: 20px;
+    left: 0;
 }
 
+.flower-illustration-realtime .rose-petals > div {
+    width: 45px;
+    height: 80px;
+    position: absolute;
+    transition: all 0.5s ease-out;
+}
+
+/* Warna untuk bunga ungu realtime */
+.flower-illustration-realtime.purple .rose-petals > div {
+    background: #800080;
+}
+
+.flower-illustration-realtime.purple .rose-petals > div:nth-child(1) {
+    border-radius: 15px;
+    left: 28px;
+    top: -6px;
+    background: linear-gradient(45deg, #800080, #9a009a);
+}
+
+/* Warna untuk bunga putih realtime */
+.flower-illustration-realtime.white .rose-petals > div {
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+}
+
+.flower-illustration-realtime.white .rose-petals > div:nth-child(1) {
+    border-radius: 15px;
+    left: 20px;
+    top: -6px;
+    background: linear-gradient(45deg, #ffffff, #f8f9fa);
+}
+
+/* Batang dan tinggi realtime */
 .flower-illustration-realtime .stem-height {
-    width: 4px;
-    background-color: #28a745;
+    width: 6px;
+    background: linear-gradient(to right, #1a7431, #28a745, #1a7431);
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    transition: height 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
+/* Perbedaan tinggi batang realtime */
+.flower-illustration-realtime.tall .stem-height {
+    height: 200px;
+    top: 80px;
+}
+
+.flower-illustration-realtime.short .stem-height {
+    height: 80px;
+    top: 120px;
+}
+
+/* Daun realtime */
+.flower-illustration-realtime .leaf {
+    width: 55px;
+    height: 30px;
+    background: linear-gradient(to bottom right, #28a745, #1a7431);
+    position: absolute;
+    border-radius: 100px;
+    left: -25px;
+}
+
+/* Box untuk visualisasi */
 .illustration-box {
-    min-height: 200px;
+    min-height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;

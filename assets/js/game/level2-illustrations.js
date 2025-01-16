@@ -1,15 +1,10 @@
 $(document).ready(function() {
     function updateFlowerIllustration(genotype) {
         const illustration = $('.flower-illustration-realtime');
-        const flowerColor = illustration.find('.flower-color');
-        const stemHeight = illustration.find('.stem-height');
         const genotypeText = $('.genotype-text');
 
         // Reset semua style dan class
         illustration.removeClass('purple white tall short');
-        flowerColor.css('background-color', '');
-        flowerColor.css('border', '');
-        stemHeight.css('height', '');
 
         if (genotype && genotype.length === 4) {
             // Tampilkan ilustrasi
@@ -17,20 +12,15 @@ $(document).ready(function() {
             
             // Update warna bunga berdasarkan alel R
             if (genotype.includes('R')) {
-                flowerColor.css('background-color', '#800080'); // Warna ungu
                 illustration.addClass('purple');
             } else {
-                flowerColor.css('background-color', '#f8f9fa');
-                flowerColor.css('border', '2px solid #dee2e6');
                 illustration.addClass('white');
             }
 
             // Update tinggi batang berdasarkan alel T
             if (genotype.includes('T')) {
-                stemHeight.css('height', '100px');
                 illustration.addClass('tall');
             } else {
-                stemHeight.css('height', '50px');
                 illustration.addClass('short');
             }
 

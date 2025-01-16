@@ -142,8 +142,27 @@
                                     <h5 class="text-center mb-3">Visualisasi Jawaban</h5>
                                     <div class="illustration-box">
                                         <div class="flower-illustration-realtime">
-                                            <div class="flower-color"></div>
-                                            <div class="stem-height"></div>
+                                            <div class="glow"></div>
+                                            <div class="rose-petals">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="stem-connector"></div>
+                                            <div class="stem-height">
+                                                <div class="thorns">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                                <div class="leaf leaf-left"></div>
+                                                <div class="leaf leaf-right"></div>
+                                            </div>
                                         </div>
                                         <div class="genotype-text mt-2"></div>
                                     </div>
