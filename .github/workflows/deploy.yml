@@ -13,19 +13,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: 103.247.8.134
-          username: autodeploy@koys.my.id
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /public_html/persilangansifat/
-          protocol: ftp
-          port: 21
-          timeout: 60000
-          log-level: verbose
-          dangerous-clean-slate: false
+         - name: FTP Deploy
+     uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+     with:
+       server: 103.247.8.134
+       username: autodeploy@koys.my.id
+       password: ${{ secrets.FTP_PASSWORD }}
+       local-dir: ./
+       server-dir: /public_html/persilangansifat/
+       protocol: ftp
+       port: 21
+       timeout: 60000
+       log-level: verbose
+       exclude: []  # Kosongkan exclude
 
       - name: Notify Deploy Status
         if: always()
