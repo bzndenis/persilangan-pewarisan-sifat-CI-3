@@ -20,7 +20,12 @@ jobs:
           username: autodeploy@koys.my.id
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /public_html/persilangansifat
+          server-dir: /public_html/persilangansifat/
+          protocol: ftp
+          port: 21
+          timeout: 60000
+          log-level: verbose
+          dangerous-clean-slate: false
 
       - name: Notify Deploy Status
         if: always()
