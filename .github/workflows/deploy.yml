@@ -5,33 +5,27 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy: 
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: 103.247.8.134
-          username: autodeploy@koys.my.id
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /public_html/persilangansifat/
-          protocol: ftp
-          port: 21
-          timeout: 60000
-          log-level: verbose
-          dangerous-clean-slate: false
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: 103.247.8.134
+        username: autodeploy@koys.my.id
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./
+        server-dir: /public_html/persilangansifat
 
-      - name: Notify Deploy Status
-        if: always()
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: https://webhook.koys.my.id/webhook/deployment
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"repository_id": 1, "status": "${{ job.status }}", "message": "Deployment completed with status ${{ job.status }}"}' 
+    - name: Notify Deploy Status
+      if: always()
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: https://webhook.koys.my.id/webhook/deployment
+        method: 'POST'
+        customHeaders: '{"Content-Type": "application/json"}'
+        data: '{"repository_id": 1, "status": "${{ job.status }}", "message": "Deployment completed with status ${{ job.status }}"}'
